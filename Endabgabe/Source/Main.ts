@@ -96,10 +96,10 @@ namespace Endabgabe {
           ƒS.Inventory.close();
           inventoryIsOpen = false;
         }
-        break; 
+        break;
     }
   }
-  
+
   export let items = {
     key: {
       name: "Key",
@@ -148,9 +148,11 @@ namespace Endabgabe {
 
     // start the sequence
     ƒS.Progress.go(scenes);
+
+    let uiElement: HTMLElement = document.querySelector("[type=interface]");
+    dataForSave = ƒS.Progress.setData(dataForSave, uiElement);
   }
 
-  let uiElement: HTMLElement = document.querySelector("[type=interface]");
-  dataForSave = ƒS.Progress.setData(dataForSave, uiElement);
+
 
 }

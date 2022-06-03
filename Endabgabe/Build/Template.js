@@ -131,9 +131,9 @@ var Endabgabe;
         ];
         // start the sequence
         Endabgabe.ƒS.Progress.go(scenes);
+        let uiElement = document.querySelector("[type=interface]");
+        Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
     }
-    let uiElement = document.querySelector("[type=interface]");
-    Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
 })(Endabgabe || (Endabgabe = {}));
 var Endabgabe;
 (function (Endabgabe) {
