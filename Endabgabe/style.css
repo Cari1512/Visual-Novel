@@ -1,14 +1,17 @@
 scene {
-  width: 1280px;
-  height: 720px;
+  width: 1920px;
+  height: 1080px;
   display: inline-block;
+  position: absolute;
 }
+
 canvas {
   width: 100%;
   height: 100%;
 }
 
-html, body{
+html,
+body {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
@@ -26,9 +29,11 @@ dialog[type=splash] {
   cursor: pointer;
   text-align: center;
 }
+
 dialog[type=splash]>img#FudgeStoryLogo {
   width: 100%;
 }
+
 speech {
   position: absolute;
   bottom: 20px;
@@ -40,31 +45,33 @@ speech {
   width: 90%;
   height: 10vh;
 }
-dialog[type="inventory"] amount{
+
+dialog[type="inventory"] amount {
   display: none;
-  }
-  
-  dialog[type="inventory"]>ul>li {
-   
-    height: 50px;
-    width: 100%;
-    list-style-type: none;
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  
-  dialog[type="inventory"]>ul>li img {
-    width: 100%;
-    object-fit: contain;
-  }
-  dialog[type="inventory"] button{
-    border: none;
-    outline: none;
-    cursor: default;
-    background-color: #0000;
-    color: beige;
-    font-size: 15px;
-    border: 2px solid beige;
-    cursor:pointer
-  }
+}
+
+dialog[type="inventory"]>ul>li {
+
+  height: 50px;
+  width: 100%;
+  list-style-type: none;
+  margin-bottom: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+dialog[type="inventory"]>ul>li img {
+  width: 100%;
+  object-fit: contain;
+}
+
+dialog[type="inventory"] button {
+  border: none;
+  outline: none;
+  cursor: default;
+  background-color: #0000;
+  color: beige;
+  font-size: 15px;
+  border: 2px solid beige;
+  cursor: pointer
+}

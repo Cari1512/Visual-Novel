@@ -23,9 +23,9 @@ namespace Endabgabe {
   };
 
   export let locations = {
-    city: {
-      name: "city",
-      background: "Images/Backgrounds/bg_city_sunset.png",
+    diningroom: {
+      name: "diningroom",
+      background: "Images/Backgrounds/diningroom.png",
     }
   };
 
@@ -33,20 +33,28 @@ namespace Endabgabe {
     narrator: {
       name: "",
     },
-    adeline: {
-      name: "Adeline",
+    mum: {
+      name: "Mum",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
 
         happy: "Images/Character/Adelinde_smile.png",
       }
     },
-    dan: {
-      name: "Dan",
+    dad: {
+      name: "Dad",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
         angry: "Pfad",
-        happy: "",
+        happy: "Images/Character/Adelinde_smile.png",
+      }
+    },
+    valeria: {
+      name: "Valeria",
+      origin: ƒS.ORIGIN.BOTTOMCENTER,
+      pose: {
+        angry: "Pfad",
+        happy: "Images/Character/Adelinde_smile.png",
       }
     }
   };
@@ -81,9 +89,19 @@ namespace Endabgabe {
     ƒS.Text.print("Credits! :D");
   }
 
+  export async function say(_char: Object, _text: string, _italic: boolean = false): Promise<void> {
+    if (_italic) {
+      let newText: string = "<i>" + _text + "</i>";
+      await ƒS.Speech.tell(_char, newText);
+    }
+    else {
+      await ƒS.Speech.tell(_char, _text);
+    }
+  }
+
   window.addEventListener("keydown", hdnKeypress);
 
-  let inventoryIsOpen: boolean = false;
+  let inventoryIsOpen: boolean;
 
   async function hdnKeypress(_event: KeyboardEvent): Promise<void> {
     switch (_event.code) {
@@ -134,25 +152,20 @@ namespace Endabgabe {
   }
 
   export let dataForSave = {
-    nameProtagonist: "",
-    score: 0,
   };
-
-
 
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
-      { scene: Scene, name: "Scene", id: "Scene" }
+      { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" }
     ];
-
-    // start the sequence
-    ƒS.Progress.go(scenes);
 
     let uiElement: HTMLElement = document.querySelector("[type=interface]");
     dataForSave = ƒS.Progress.setData(dataForSave, uiElement);
+
+    ƒS.Speech.hide();
+
+    // start the sequence
+    ƒS.Progress.go(scenes);
   }
-
-
-
 }

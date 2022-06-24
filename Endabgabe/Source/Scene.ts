@@ -36,11 +36,11 @@ namespace Endabgabe {
     switch (firstDialog) {
       case firstDialogAnswer.iSayOk:
         await ƒS.Speech.tell(characters.narrator, "Ich sage okay");
-        break;
+        return "SceneOkay";
       
       case firstDialogAnswer.iSayNo:
         await ƒS.Speech.tell(characters.narrator, "ich sage nö");
-        break;
+        return "SceneNö";
     }
     return "Scene";
 

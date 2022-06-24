@@ -13,7 +13,7 @@ declare namespace Endabgabe {
         click: string;
     };
     let locations: {
-        city: {
+        diningroom: {
             name: string;
             background: string;
         };
@@ -22,14 +22,22 @@ declare namespace Endabgabe {
         narrator: {
             name: string;
         };
-        adeline: {
+        mum: {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {
                 happy: string;
             };
         };
-        dan: {
+        dad: {
+            name: string;
+            origin: ƒ.ORIGIN2D;
+            pose: {
+                angry: string;
+                happy: string;
+            };
+        };
+        valeria: {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {
@@ -46,6 +54,7 @@ declare namespace Endabgabe {
     };
     function btnFunctionalities(_option: string): Promise<void>;
     function showCredits(): void;
+    function say(_char: Object, _text: string, _italic?: boolean): Promise<void>;
     let items: {
         key: {
             name: string;
@@ -78,11 +87,11 @@ declare namespace Endabgabe {
             image: string;
         };
     };
-    let dataForSave: {
-        nameProtagonist: string;
-        score: number;
-    };
+    let dataForSave: {};
 }
 declare namespace Endabgabe {
     function Scene(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function ANormalDay(): ƒS.SceneReturn;
 }
