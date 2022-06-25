@@ -16,6 +16,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background-color: black;
+  font-size: 30px;
 }
 
 dialog[type=splash] {
@@ -44,6 +45,16 @@ speech {
   border-radius: 15px;
   width: 90%;
   height: 10vh;
+}
+speech name {
+  position: relative;
+  font-weight: 700;
+  background: rgba(0, 0, 0, 0.801);
+  color: white;
+  bottom: 30px;
+  padding-left: 15px;
+  padding-right: 15px;
+  border-radius: 15px;
 }
 
 dialog[type="inventory"] amount {

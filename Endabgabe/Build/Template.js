@@ -10,6 +10,11 @@ var Endabgabe;
             duration: 1,
             alpha: "Transitions/jigsaw_06.jpg",
             edge: 1
+        },
+        slide: {
+            duration: 1.5,
+            alpha: "Transitions/slide.jpg",
+            edge: 0.1,
         }
     };
     Endabgabe.sound = {
@@ -22,6 +27,14 @@ var Endabgabe;
         diningroom: {
             name: "diningroom",
             background: "Images/Backgrounds/diningroom.png",
+        },
+        hallway: {
+            name: "hallway",
+            background: "Images/Backgrounds/hallway.png",
+        },
+        bedroom: {
+            name: "bedroom",
+            background: "Images/Backgrounds/bedroom.png",
         }
     };
     Endabgabe.characters = {
@@ -142,7 +155,8 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
-            { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" }
+            { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
+            { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" }
         ];
         let uiElement = document.querySelector("[type=interface]");
         Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
@@ -200,7 +214,7 @@ var Endabgabe;
         gameMenu.open();
         let text = {
             Valeria: {
-                T0001: "Meet my family: my mum Claire, my dad Frank, and my older brother Will. We were always a close-knitted family. But I can't remember anything from the past, they said I had a terrible car accident.",
+                T0001: "Family. My mum Claire, my dad Frank and my brother Will. We were always a close-knitted family. But I can't remember anything from the past, they said I had a terrible car accident.",
                 T0002: "Hit my head pretty hard. I couldn't recognize anyone because of amnesia. My family took care of me. Explained everything to me, told me who my friends were, what I studied, and what my dreams were. They felt unfamiliar to me.",
                 T0003: "It’s hard to accept parts of myself I don’t remember. Sometimes pieces of memory come back to me at random times. Often rather ordinary stuff: My old cat, what pen I loved to use for my notes or a night out with friends.",
                 T0005: "Yeah...",
@@ -219,7 +233,7 @@ var Endabgabe;
         };
         Endabgabe.ƒS.Speech.hide();
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
-        await Endabgabe.ƒS.update(Endabgabe.transitions.jigsaw.duration, Endabgabe.transitions.jigsaw.alpha, Endabgabe.transitions.jigsaw.edge);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
@@ -236,8 +250,40 @@ var Endabgabe;
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0011, true);
-        return "ANormalDay";
+        return "ThePicture";
     }
     Endabgabe.ANormalDay = ANormalDay;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function ThePicture() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "I can’t fall asleep. I lay awake in my bed for hours. I can hear my brothers snoring next door. The walls are thin in this house.",
+                T0002: "Noise from the hallway…",
+                T0020: "...",
+                T0003: "Oh...the picture fell down! Should I hang the picture? Or deal with it tomorrow maybe?",
+                T0004: "No, the nail went through the wall. It sounds like there are stairs on the other side",
+                T0005: "It's another room! It must have been closed for a while, I don't remember this room....",
+                T0006: "only dust and some old toys...it's cold. It doesn't seem like anyone has been here for ages. ",
+                T0007: "I don't like it here, let's go back to bed.",
+                T0008: "What is that? A Bank Account! Why would it be here?",
+                T0009: "It’s mums bank account…let’s keep it for now!",
+            }
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
+        await Endabgabe.ƒS.update(5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+    }
+    Endabgabe.ThePicture = ThePicture;
 })(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=Template.js.map

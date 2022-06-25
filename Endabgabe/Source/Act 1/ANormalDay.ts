@@ -7,7 +7,7 @@ namespace Endabgabe {
 
         let text = {
             Valeria: {
-                T0001: "Meet my family: my mum Claire, my dad Frank, and my older brother Will. We were always a close-knitted family. But I can't remember anything from the past, they said I had a terrible car accident.",
+                T0001: "Family. My mum Claire, my dad Frank and my brother Will. We were always a close-knitted family. But I can't remember anything from the past, they said I had a terrible car accident.",
                 T0002: "Hit my head pretty hard. I couldn't recognize anyone because of amnesia. My family took care of me. Explained everything to me, told me who my friends were, what I studied, and what my dreams were. They felt unfamiliar to me.",
                 T0003: "It’s hard to accept parts of myself I don’t remember. Sometimes pieces of memory come back to me at random times. Often rather ordinary stuff: My old cat, what pen I loved to use for my notes or a night out with friends.",
                 T0005: "Yeah...",
@@ -29,7 +29,7 @@ namespace Endabgabe {
 
         ƒS.Speech.hide();
         await ƒS.Location.show(locations.diningroom);
-        await ƒS.update(transitions.jigsaw.duration, transitions.jigsaw.alpha, transitions.jigsaw.edge);
+        await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
         await say(characters.valeria, text.Valeria.T0001, true);
         await say(characters.valeria, text.Valeria.T0002, true);
@@ -52,7 +52,7 @@ namespace Endabgabe {
         await say(characters.valeria, text.Valeria.T0010, true);
         await say(characters.valeria, text.Valeria.T0011, true);
 
-        return "ANormalDay";
+        return "ThePicture";
     }
 
 }

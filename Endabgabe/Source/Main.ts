@@ -11,6 +11,11 @@ namespace Endabgabe {
       duration: 1,
       alpha: "Transitions/jigsaw_06.jpg",
       edge: 1
+    },
+    slide: {
+      duration: 1.5,
+      alpha: "Transitions/slide.jpg",
+      edge: 0.1,
     }
   };
 
@@ -26,6 +31,14 @@ namespace Endabgabe {
     diningroom: {
       name: "diningroom",
       background: "Images/Backgrounds/diningroom.png",
+    },
+    hallway: {
+      name: "hallway",
+      background: "Images/Backgrounds/hallway.png",
+    },
+    bedroom: {
+      name: "bedroom",
+      background: "Images/Backgrounds/bedroom.png",
     }
   };
 
@@ -157,7 +170,8 @@ namespace Endabgabe {
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
-      { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" }
+      { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
+      { scene: ThePicture, name: "ThePicture", id: "ThePicture" }
     ];
 
     let uiElement: HTMLElement = document.querySelector("[type=interface]");

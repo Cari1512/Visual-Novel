@@ -7,6 +7,11 @@ declare namespace Endabgabe {
             alpha: string;
             edge: number;
         };
+        slide: {
+            duration: number;
+            alpha: string;
+            edge: number;
+        };
     };
     let sound: {
         nightclub: string;
@@ -14,6 +19,14 @@ declare namespace Endabgabe {
     };
     let locations: {
         diningroom: {
+            name: string;
+            background: string;
+        };
+        hallway: {
+            name: string;
+            background: string;
+        };
+        bedroom: {
             name: string;
             background: string;
         };
@@ -94,4 +107,7 @@ declare namespace Endabgabe {
 }
 declare namespace Endabgabe {
     function ANormalDay(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function ThePicture(): ƒS.SceneReturn;
 }
