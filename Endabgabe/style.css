@@ -16,7 +16,8 @@ body {
   height: 100vh;
   overflow: hidden;
   background-color: black;
-  font-size: 30px;
+  font-size: 25px;
+  font-family:'Times', Courier, monospace;
 }
 
 dialog[type=splash] {

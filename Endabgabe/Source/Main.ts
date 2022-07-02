@@ -16,6 +16,11 @@ namespace Endabgabe {
       duration: 1.5,
       alpha: "Transitions/slide.jpg",
       edge: 0.1,
+    },
+    slideFast: {
+      duration: 0.5,
+      alpha: "Transitions/slideFast.jpg",
+      edge: 0.1,
     }
   };
 
@@ -39,6 +44,10 @@ namespace Endabgabe {
     bedroom: {
       name: "bedroom",
       background: "Images/Backgrounds/bedroom.png",
+    },
+    act1: {
+      name: "act1",
+      background: "Images/Text/Act1.jpg",
     }
   };
 
@@ -165,13 +174,18 @@ namespace Endabgabe {
   }
 
   export let dataForSave = {
+    foundSecretRoom: false
   };
 
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
+      
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
-      { scene: ThePicture, name: "ThePicture", id: "ThePicture" }
+      { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
+      { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },
+      
+
     ];
 
     let uiElement: HTMLElement = document.querySelector("[type=interface]");

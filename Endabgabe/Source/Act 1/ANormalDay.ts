@@ -28,8 +28,12 @@ namespace Endabgabe {
         }
 
         ƒS.Speech.hide();
+        await ƒS.Location.show(locations.act1);
+        await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
+        await ƒS.update(5);
         await ƒS.Location.show(locations.diningroom);
-        await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+        await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
+        await ƒS.update(0.5);
 
         await say(characters.valeria, text.Valeria.T0001, true);
         await say(characters.valeria, text.Valeria.T0002, true);

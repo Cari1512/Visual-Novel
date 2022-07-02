@@ -15,6 +15,11 @@ var Endabgabe;
             duration: 1.5,
             alpha: "Transitions/slide.jpg",
             edge: 0.1,
+        },
+        slideFast: {
+            duration: 0.5,
+            alpha: "Transitions/slideFast.jpg",
+            edge: 0.1,
         }
     };
     Endabgabe.sound = {
@@ -35,6 +40,10 @@ var Endabgabe;
         bedroom: {
             name: "bedroom",
             background: "Images/Backgrounds/bedroom.png",
+        },
+        act1: {
+            name: "act1",
+            background: "Images/Text/Act1.jpg",
         }
     };
     Endabgabe.characters = {
@@ -151,12 +160,15 @@ var Endabgabe;
             image: "./Images/Items/glasses.png",
         },
     };
-    Endabgabe.dataForSave = {};
+    Endabgabe.dataForSave = {
+        foundSecretRoom: false
+    };
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
-            { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" }
+            { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
+            { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
         ];
         let uiElement = document.querySelector("[type=interface]");
         Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
@@ -232,8 +244,12 @@ var Endabgabe;
             }
         };
         Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.act1);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(5);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
-        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
@@ -256,20 +272,171 @@ var Endabgabe;
 })(Endabgabe || (Endabgabe = {}));
 var Endabgabe;
 (function (Endabgabe) {
+    async function AskingFamily() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "Good morning, mum",
+                T0002: "Not really, I couldn't fall asleep. ",
+                T0003: "Yeah, well, can I ask you something?",
+                T0004: "How long have we been living here?",
+                T0005: "There is a room behind the picture in the hallway. Did you know?",
+                T0006: "Mum, are you missing something?",
+                T0007: "No no……. never mind. It’s nothing, really.",
+                T0008: "I found this bank statement behind the picture in the hallway. ",
+            },
+            Mum: {
+                T0001: "Good morning darling, did you sleep well last night? ",
+                T0002: "What is it, Valeria?",
+                T0003: "Why are you asking?",
+                T0004: "No, nothing in particular. Is something wrong? ",
+            },
+            Dad: {
+                T0001: "Morning, you alright?",
+                T0002: "Why are you asking?",
+                T0003: "We built this house about 25 years ago; this was always our home.",
+                T0004: "Yes, but we never used that room, it's from the family that used to live here. Don't get bothered by it, I already saw the hole in the wall, I will it soon!",
+                T0005: "Oh, let me see…",
+                T0006: "... hmmmm must have gotten there by accident. I will put it in the right folder!",
+                T0007: "...",
+            }
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0001);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.happy, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0001);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0002);
+        let findingQuestionAnswer = {
+            noReason: "No reason, just curious...",
+            iFoundSomething: "Because I found something yesterday night.....",
+        };
+        if (Endabgabe.dataForSave.foundSecretRoom) {
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004);
+            await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0007);
+            await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0002);
+            let findingQuestion = await Endabgabe.ƒS.Menu.getInput(findingQuestionAnswer, "decision");
+            switch (findingQuestion) {
+                case findingQuestionAnswer.noReason:
+                    await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0003);
+                    await Endabgabe.ƒS.update(0.2);
+                    return "OddThings";
+                case findingQuestionAnswer.iFoundSomething:
+                    await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
+                    await Endabgabe.ƒS.update(0.2);
+                    await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0004);
+                    return "OddThings";
+            }
+        }
+        else {
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006);
+            await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0004);
+            let findingQuestion = await Endabgabe.ƒS.Menu.getInput(findingQuestionAnswer, "decision");
+            switch (findingQuestion) {
+                case findingQuestionAnswer.noReason:
+                    await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0004);
+                    await Endabgabe.ƒS.update(0.2);
+                    await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007);
+                    return "OddThings";
+                case findingQuestionAnswer.iFoundSomething:
+                    await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008);
+                    await Endabgabe.ƒS.update(0.2);
+                    await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0006);
+                    return "OddThings";
+            }
+        }
+    }
+    Endabgabe.AskingFamily = AskingFamily;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function OddThings() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "To keep me safe, my parents want me to stay at home.",
+                T0002: "Currently I’m not going to school or meeting my friends. The doctor also told me to avoid stressful situations for a while.",
+                T0003: "While my brother is in class and my parents are at work, I have the for house for myself. ",
+                T0004: "Not gonna lie, it's boring to have nothing to do. ",
+                T0005: "This house I have been living in my whole life feels familiar to me. I remember the smell of it. A mix of old wood and fresh grass. ",
+                T0006: "Our house is in the outskirts, behind the house only field and trees. ",
+                T0007: ". In my memories the walls were covered in pictures. Family photos and some drawings by me and my brother when we were kids. ",
+                T0008: "I guess my parents take now more of a minimalistic approach towards the house decorations, at least for photos. I can’t find any family photos in this house...",
+                T0009: "It's so dark here. I should get the flashlight out.",
+                T0010: "The flashlight is in my pocket....",
+                T0011: "I should take it out and use it before searching the room!",
+                T0012: "So much dust!",
+                T0013: "Old plushies everywhere",
+                T0014: "There are drawings on the wall... ",
+                T0015: "Even a bed, why is there a bed? ",
+                T0016: "Shit, this is getting way too creepy, I want to go back upstairs.",
+                T0017: "Let's put up the painting, so it won't be so scary to see the room through the hole in the wall.",
+                T0018: "I know my family is well off, but we used to never talk about money. ",
+                T0019: "It wasn't something to discuss during dinners, at least not that I remember of. ",
+                T0020: "Dad, don't you remember, you guys never wanted me to spend much money, so you gave me my allowance in cash every month.",
+                T0021: "I don't have access to my bank account. Only you have.",
+                T0022: "Yeah, in your office, you showed me when I turned 16. Don't worry, why would there be an emergency? ...",
+                T0023: "Ok....sure I guess",
+                T0024: "So, if for any reason I need money and you guys aren't around, I'm allowed to open the safe in the couch.",
+                T0025: "....I don't. I've forgotten. Sorry. What was it again?",
+                T0026: "...bye",
+                T0027: "She talks so much; I couldn't even say something.... ",
+                T0028: "But it's true, the neighborhoods BBQ Party is every year around September. Why didn't we go? Mum would never forget... ",
+                T0029: "I noticed some things about mum I never noticed before. ",
+                T0030: "She is way more talkative than she used to be and keeps forgetting stuff. Maybe it's because I'm sick, but she isn't herself these days. Is she stressed? Hmmm",
+                T0031: "I'm bored. Should I watch TV today?",
+                T0032: "This house is so big. It's so lonely here...",
+                T0033: "Mum and Dad will come back at 6 pm, my brother probably a bit earlier...",
+                T0043: "Should I watch a movie?",
+            },
+            Mum: {
+                T0001: "You never know. Just to make sure, why don't you show us? Like a little training session for emergencies?",
+                T0002: "Honey, look at the mess! You should at least try to keep it tidy!",
+                T0003: "Don't worry, you don't need to know now. We will tell you when you are ready, and your mind isn't as cluttered as it is now. Let's go step by step. Right, honey?",
+            },
+            Dad: {
+                T0001: "Valeria, do you know how much you have on your bank account?",
+                T0002: "Ah right, I must be getting old, I forgot, yes of course, in cash. But in case of emergency, you know where to get it, right?",
+                T0003: "Go on, do you remember the code?",
+                T0004: "Yes, yes, you are right! No pressure, Valeria!",
+            },
+            Neighbor: {
+                T0001: "Hello Sweetheart, how are you doing? Everything is good? Yeah? Listen, I am in bit of a hurry. Tell me, why did your family not show up at the annual BBQ party at my house, huh?",
+                T0002: "Have I done something wrong? Is your mum angry with me? If it's still about that stupid salat bowl argument, tell her I'm sorry. But I always thought your mum wouldn't mind stuff like that!",
+                T0003: "! You guys could have at least told me that you weren't coming this year! ",
+                T0004: "People were missing your baked goods! Anyways, hope you guys aren't mad or somethin'. ",
+                T0005: ". See ya and talk to you soon! Oh, and sweetheart, try to stay at home, this city isn't as safe as it used to be, ok? Bye bye!",
+            }
+        };
+    }
+    Endabgabe.OddThings = OddThings;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
     async function ThePicture() {
         let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
         gameMenu.open();
         let text = {
             Valeria: {
-                T0001: "I can’t fall asleep. I lay awake in my bed for hours. I can hear my brothers snoring next door. The walls are thin in this house.",
+                T0001: "I can’t fall asleep. I lay awake in my bed for hours. I can hear my brothers snoring next door. The walls are thin in this house...",
                 T0002: "Noise from the hallway…",
                 T0020: "...",
                 T0003: "Oh...the picture fell down! Should I hang the picture? Or deal with it tomorrow maybe?",
-                T0004: "No, the nail went through the wall. It sounds like there are stairs on the other side",
+                T0004: "No, the nail went through the wall. It sounds like there are stairs on the other side...let's see!",
                 T0005: "It's another room! It must have been closed for a while, I don't remember this room....",
                 T0006: "only dust and some old toys...it's cold. It doesn't seem like anyone has been here for ages. ",
                 T0007: "I don't like it here, let's go back to bed.",
-                T0008: "What is that? A Bank Account! Why would it be here?",
+                T0008: "Wait, what is that? A Bank Account! Why would it be here?",
                 T0009: "It’s mums bank account…let’s keep it for now!",
             }
         };
@@ -278,11 +445,34 @@ var Endabgabe;
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
-        await Endabgabe.ƒS.update(5);
+        await Endabgabe.ƒS.update(3);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        let hangPictureAnswer = {
+            iSayYes: "Yes, let's hang it now!",
+            iSayNo: "No, it can wait until tomorrow...",
+        };
+        let foundSecretRoom = await Endabgabe.ƒS.Menu.getInput(hangPictureAnswer, "decision");
+        switch (foundSecretRoom) {
+            case hangPictureAnswer.iSayYes:
+                Endabgabe.dataForSave.foundSecretRoom = true;
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
+                await Endabgabe.ƒS.update(3);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
+                return "AskingFamily";
+            case hangPictureAnswer.iSayNo:
+                Endabgabe.dataForSave.foundSecretRoom = false;
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
+                return "AskingFamily";
+        }
     }
     Endabgabe.ThePicture = ThePicture;
 })(Endabgabe || (Endabgabe = {}));

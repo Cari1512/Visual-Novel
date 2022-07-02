@@ -12,6 +12,11 @@ declare namespace Endabgabe {
             alpha: string;
             edge: number;
         };
+        slideFast: {
+            duration: number;
+            alpha: string;
+            edge: number;
+        };
     };
     let sound: {
         nightclub: string;
@@ -27,6 +32,10 @@ declare namespace Endabgabe {
             background: string;
         };
         bedroom: {
+            name: string;
+            background: string;
+        };
+        act1: {
             name: string;
             background: string;
         };
@@ -100,13 +109,21 @@ declare namespace Endabgabe {
             image: string;
         };
     };
-    let dataForSave: {};
+    let dataForSave: {
+        foundSecretRoom: boolean;
+    };
 }
 declare namespace Endabgabe {
     function Scene(): ƒS.SceneReturn;
 }
 declare namespace Endabgabe {
     function ANormalDay(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function AskingFamily(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function OddThings(): ƒS.SceneReturn;
 }
 declare namespace Endabgabe {
     function ThePicture(): ƒS.SceneReturn;
