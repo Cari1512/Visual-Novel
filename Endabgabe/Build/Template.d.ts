@@ -35,6 +35,10 @@ declare namespace Endabgabe {
             name: string;
             background: string;
         };
+        secretroom: {
+            name: string;
+            background: string;
+        };
         act1: {
             name: string;
             background: string;
@@ -78,35 +82,11 @@ declare namespace Endabgabe {
     function showCredits(): void;
     function say(_char: Object, _text: string, _italic?: boolean): Promise<void>;
     let items: {
-        key: {
+        flashlight: {
             name: string;
             description: string;
             image: string;
-        };
-        Dokument: {
-            name: string;
-            description: string;
-            image: string;
-        };
-        tape: {
-            name: string;
-            description: string;
-            image: string;
-        };
-        book: {
-            name: string;
-            description: string;
-            image: string;
-        };
-        knife: {
-            name: string;
-            description: string;
-            image: string;
-        };
-        glasses: {
-            name: string;
-            description: string;
-            image: string;
+            static: boolean;
         };
     };
     let dataForSave: {

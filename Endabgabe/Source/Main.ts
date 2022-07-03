@@ -45,6 +45,10 @@ namespace Endabgabe {
       name: "bedroom",
       background: "Images/Backgrounds/bedroom.png",
     },
+    secretroom: {
+      name: "secretroom",
+      background: "Images/Backgrounds/bedroom.png",
+    },
     act1: {
       name: "act1",
       background: "Images/Text/Act1.jpg",
@@ -141,35 +145,12 @@ namespace Endabgabe {
   }
 
   export let items = {
-    key: {
-      name: "Key",
-      description: "Keys found.",
-      image: "./Images/Items/key.png",
-    },
-    Dokument: {
-      name: "Document",
-      description: "Murder case.",
-      image: "./Images/Items/document.png",
-    },
-    tape: {
-      name: "Tape",
-      description: "Tape, always helpfull.",
-      image: "./Images/Items/tape.png",
-    },
-    book: {
-      name: "Diary",
-      description: "No notes today.",
-      image: "./Images/Items/book.png",
-    },
-    knife: {
-      name: "Knife",
-      description: "Just in case....",
-      image: "./Images/Items/knife.png",
-    },
-    glasses: {
-      name: "Glasses",
-      description: "can't read shit without them",
-      image: "./Images/Items/glasses.png",
+   
+    flashlight: {
+      name: "Flashlight",
+      description: "in case I need a light",
+      image: "./Images/Items/flashlight.png",
+      static: false,
     },
   }
 
@@ -180,6 +161,8 @@ namespace Endabgabe {
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
+
+      { scene: OddThings, name: "OddThings", id: "OddThings" },
       
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },

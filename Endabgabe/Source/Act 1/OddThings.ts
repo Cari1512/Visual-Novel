@@ -4,8 +4,9 @@ namespace Endabgabe {
 
         let gameMenu = ƒS.Menu.create(ingameButtons, btnFunctionalities, "gameMenu");
         gameMenu.open();
+        ƒS.Inventory.add(items.flashlight);
 
-
+       
 
         let text = {
             Valeria: {
@@ -15,9 +16,9 @@ namespace Endabgabe {
                 T0004: "Not gonna lie, it's boring to have nothing to do. ",
                 T0005: "This house I have been living in my whole life feels familiar to me. I remember the smell of it. A mix of old wood and fresh grass. ",
                 T0006: "Our house is in the outskirts, behind the house only field and trees. ",
-                T0007: ". In my memories the walls were covered in pictures. Family photos and some drawings by me and my brother when we were kids. ",
+                T0007: "In my memories the walls were covered in pictures. Family photos and some drawings by me and my brother when we were kids. ",
                 T0008: "I guess my parents take now more of a minimalistic approach towards the house decorations, at least for photos. I can’t find any family photos in this house...",
-                
+
                 T0009: "It's so dark here. I should get the flashlight out.",
                 T0010: "The flashlight is in my pocket....",
                 T0011: "I should take it out and use it before searching the room!",
@@ -44,8 +45,8 @@ namespace Endabgabe {
                 T0028: "But it's true, the neighborhoods BBQ Party is every year around September. Why didn't we go? Mum would never forget... ",
                 T0029: "I noticed some things about mum I never noticed before. ",
                 T0030: "She is way more talkative than she used to be and keeps forgetting stuff. Maybe it's because I'm sick, but she isn't herself these days. Is she stressed? Hmmm",
-                
-                
+
+
                 T0031: "I'm bored. Should I watch TV today?",
                 T0032: "This house is so big. It's so lonely here...",
                 T0033: "Mum and Dad will come back at 6 pm, my brother probably a bit earlier...",
@@ -63,7 +64,7 @@ namespace Endabgabe {
                 T0002: "Ah right, I must be getting old, I forgot, yes of course, in cash. But in case of emergency, you know where to get it, right?",
                 T0003: "Go on, do you remember the code?",
                 T0004: "Yes, yes, you are right! No pressure, Valeria!",
-            
+
             },
             Neighbor: {
                 T0001: "Hello Sweetheart, how are you doing? Everything is good? Yeah? Listen, I am in bit of a hurry. Tell me, why did your family not show up at the annual BBQ party at my house, huh?",
@@ -73,10 +74,39 @@ namespace Endabgabe {
                 T0005: ". See ya and talk to you soon! Oh, and sweetheart, try to stay at home, this city isn't as safe as it used to be, ok? Bye bye!",
 
             }
+        }
+
+        ƒS.Speech.hide();
+        await ƒS.update(0.2);
+        await ƒS.Location.show(locations.bedroom);
+        await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+
+        await say(characters.valeria, text.Valeria.T0001);
+        await say(characters.valeria, text.Valeria.T0002);
+        await say(characters.valeria, text.Valeria.T0003);
+        await say(characters.valeria, text.Valeria.T0004);
+        await say(characters.valeria, text.Valeria.T0005);
+        await say(characters.valeria, text.Valeria.T0006);
+        await say(characters.valeria, text.Valeria.T0007);
+        await say(characters.valeria, text.Valeria.T0008);
+
+
+        ƒS.Speech.hide();
+        await ƒS.update(0.2);
+        await ƒS.Location.show(locations.bedroom);
+        await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+        
+        while (ƒS.Inventory.getAmount(items.flashlight) !=0){
+            await say(characters.valeria, text.Valeria.T0009);
+            await say(characters.valeria, text.Valeria.T0010);
+            await say(characters.valeria, text.Valeria.T0011);
+            
+        }
+        ƒS.Inventory.close();
+        await ƒS.Location.show(locations.hallway);
+        await ƒS.update();
+
+        
+
     }
-
-
-
-    
-}
 }

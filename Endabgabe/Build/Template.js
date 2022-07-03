@@ -41,6 +41,10 @@ var Endabgabe;
             name: "bedroom",
             background: "Images/Backgrounds/bedroom.png",
         },
+        secretroom: {
+            name: "secretroom",
+            background: "Images/Backgrounds/bedroom.png",
+        },
         act1: {
             name: "act1",
             background: "Images/Text/Act1.jpg",
@@ -129,35 +133,11 @@ var Endabgabe;
         }
     }
     Endabgabe.items = {
-        key: {
-            name: "Key",
-            description: "Keys found.",
-            image: "./Images/Items/key.png",
-        },
-        Dokument: {
-            name: "Document",
-            description: "Murder case.",
-            image: "./Images/Items/document.png",
-        },
-        tape: {
-            name: "Tape",
-            description: "Tape, always helpfull.",
-            image: "./Images/Items/tape.png",
-        },
-        book: {
-            name: "Diary",
-            description: "No notes today.",
-            image: "./Images/Items/book.png",
-        },
-        knife: {
-            name: "Knife",
-            description: "Just in case....",
-            image: "./Images/Items/knife.png",
-        },
-        glasses: {
-            name: "Glasses",
-            description: "can't read shit without them",
-            image: "./Images/Items/glasses.png",
+        flashlight: {
+            name: "Flashlight",
+            description: "in case I need a light",
+            image: "./Images/Items/flashlight.png",
+            static: false,
         },
     };
     Endabgabe.dataForSave = {
@@ -166,6 +146,7 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
+            { scene: Endabgabe.OddThings, name: "OddThings", id: "OddThings" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -362,6 +343,7 @@ var Endabgabe;
     async function OddThings() {
         let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
         gameMenu.open();
+        Endabgabe.ƒS.Inventory.add(Endabgabe.items.flashlight);
         let text = {
             Valeria: {
                 T0001: "To keep me safe, my parents want me to stay at home.",
@@ -370,7 +352,7 @@ var Endabgabe;
                 T0004: "Not gonna lie, it's boring to have nothing to do. ",
                 T0005: "This house I have been living in my whole life feels familiar to me. I remember the smell of it. A mix of old wood and fresh grass. ",
                 T0006: "Our house is in the outskirts, behind the house only field and trees. ",
-                T0007: ". In my memories the walls were covered in pictures. Family photos and some drawings by me and my brother when we were kids. ",
+                T0007: "In my memories the walls were covered in pictures. Family photos and some drawings by me and my brother when we were kids. ",
                 T0008: "I guess my parents take now more of a minimalistic approach towards the house decorations, at least for photos. I can’t find any family photos in this house...",
                 T0009: "It's so dark here. I should get the flashlight out.",
                 T0010: "The flashlight is in my pocket....",
@@ -418,6 +400,30 @@ var Endabgabe;
                 T0005: ". See ya and talk to you soon! Oh, and sweetheart, try to stay at home, this city isn't as safe as it used to be, ok? Bye bye!",
             }
         };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008);
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        while (Endabgabe.ƒS.Inventory.getAmount(Endabgabe.items.flashlight) != 0) {
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0011);
+        }
+        Endabgabe.ƒS.Inventory.close();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+        await Endabgabe.ƒS.update();
     }
     Endabgabe.OddThings = OddThings;
 })(Endabgabe || (Endabgabe = {}));
