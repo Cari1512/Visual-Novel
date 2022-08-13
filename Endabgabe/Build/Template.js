@@ -48,6 +48,22 @@ var Endabgabe;
         act1: {
             name: "act1",
             background: "Images/Text/Act1.jpg",
+        },
+        office: {
+            name: "office",
+            background: "Images/Backgrounds/office.jpg",
+        },
+        livingroom: {
+            name: "livingroom",
+            background: "Images/Backgrounds/livingRoom.jpg",
+        },
+        houseDay: {
+            name: "houseDay",
+            background: "Images/Backgrounds/houseDay.jpg",
+        },
+        car: {
+            name: "car",
+            background: "Images/Backgrounds/car.jpg",
         }
     };
     Endabgabe.characters = {
@@ -71,6 +87,14 @@ var Endabgabe;
         },
         valeria: {
             name: "Valeria",
+            origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
+            pose: {
+                angry: "Pfad",
+                happy: "Images/Character/Adelinde_smile.png",
+            }
+        },
+        neighbor: {
+            name: "Ms Anne",
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
             pose: {
                 angry: "Pfad",
@@ -146,10 +170,10 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
-            { scene: Endabgabe.OddThings, name: "OddThings", id: "OddThings" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
+            { scene: Endabgabe.OddThings, name: "OddThings", id: "OddThings" },
         ];
         let uiElement = document.querySelector("[type=interface]");
         Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
@@ -376,10 +400,10 @@ var Endabgabe;
                 T0028: "But it's true, the neighborhoods BBQ Party is every year around September. Why didn't we go? Mum would never forget... ",
                 T0029: "I noticed some things about mum I never noticed before. ",
                 T0030: "She is way more talkative than she used to be and keeps forgetting stuff. Maybe it's because I'm sick, but she isn't herself these days. Is she stressed? Hmmm",
-                T0031: "I'm bored. Should I watch TV today?",
+                T0031: "I'm bored. Should I turn on the radio today?",
                 T0032: "This house is so big. It's so lonely here...",
                 T0033: "Mum and Dad will come back at 6 pm, my brother probably a bit earlier...",
-                T0043: "Should I watch a movie?",
+                T0034: "Should I listen to some music?",
             },
             Mum: {
                 T0001: "You never know. Just to make sure, why don't you show us? Like a little training session for emergencies?",
@@ -395,35 +419,93 @@ var Endabgabe;
             Neighbor: {
                 T0001: "Hello Sweetheart, how are you doing? Everything is good? Yeah? Listen, I am in bit of a hurry. Tell me, why did your family not show up at the annual BBQ party at my house, huh?",
                 T0002: "Have I done something wrong? Is your mum angry with me? If it's still about that stupid salat bowl argument, tell her I'm sorry. But I always thought your mum wouldn't mind stuff like that!",
-                T0003: "! You guys could have at least told me that you weren't coming this year! ",
+                T0003: "You guys could have at least told me that you weren't coming this year! ",
                 T0004: "People were missing your baked goods! Anyways, hope you guys aren't mad or somethin'. ",
-                T0005: ". See ya and talk to you soon! Oh, and sweetheart, try to stay at home, this city isn't as safe as it used to be, ok? Bye bye!",
+                T0005: "See ya and talk to you soon! Oh, and sweetheart, try to stay at home, this city isn't as safe as it used to be, ok? Bye bye!",
             }
         };
+        Endabgabe.ƒS.Character.hideAll();
         Endabgabe.ƒS.Speech.hide();
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007);
-        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008);
-        Endabgabe.ƒS.Speech.hide();
-        await Endabgabe.ƒS.update(0.2);
-        await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
-        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
-        while (Endabgabe.ƒS.Inventory.getAmount(Endabgabe.items.flashlight) != 0) {
-            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009);
-            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010);
-            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0011);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008, true);
+        if (Endabgabe.dataForSave.foundSecretRoom) {
+            Endabgabe.ƒS.Speech.hide();
+            await Endabgabe.ƒS.update(0.2);
+            await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom); // basement dark
+            await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+            while (Endabgabe.ƒS.Inventory.getAmount(Endabgabe.items.flashlight) != 0) {
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0011, true);
+            }
+            Endabgabe.ƒS.Inventory.close();
+            await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway); // basement light
+            await Endabgabe.ƒS.update();
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0012, true);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0013, true);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0014, true);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0015, true);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0016, true);
+            Endabgabe.ƒS.Speech.hide();
+            await Endabgabe.ƒS.update(0.2);
+            await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0017, true);
         }
-        Endabgabe.ƒS.Inventory.close();
-        await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
-        await Endabgabe.ƒS.update();
+        else {
+            Endabgabe.ƒS.Speech.hide();
+            await Endabgabe.ƒS.update(0.2);
+            await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
+            await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0018, true);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0019, true);
+            await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0001);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0021);
+            await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0002);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0022);
+            await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0001);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0023);
+            await Endabgabe.ƒS.update(0.2);
+            await Endabgabe.ƒS.Location.show(Endabgabe.locations.office);
+            await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+            await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0002);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0024);
+            await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0003);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0025);
+            await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0003);
+            await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0004);
+        }
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.houseDay);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0001);
+        await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0002);
+        await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0003);
+        await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0004);
+        await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0005);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0026);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0027, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0028, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0029, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0030, true);
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.livingroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0031, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0032, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0033, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0034, true);
     }
     Endabgabe.OddThings = OddThings;
 })(Endabgabe || (Endabgabe = {}));

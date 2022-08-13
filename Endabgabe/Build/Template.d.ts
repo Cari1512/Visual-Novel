@@ -43,6 +43,22 @@ declare namespace Endabgabe {
             name: string;
             background: string;
         };
+        office: {
+            name: string;
+            background: string;
+        };
+        livingroom: {
+            name: string;
+            background: string;
+        };
+        houseDay: {
+            name: string;
+            background: string;
+        };
+        car: {
+            name: string;
+            background: string;
+        };
     };
     let characters: {
         narrator: {
@@ -64,6 +80,14 @@ declare namespace Endabgabe {
             };
         };
         valeria: {
+            name: string;
+            origin: ƒ.ORIGIN2D;
+            pose: {
+                angry: string;
+                happy: string;
+            };
+        };
+        neighbor: {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {

@@ -6,7 +6,7 @@ namespace Endabgabe {
         gameMenu.open();
         ƒS.Inventory.add(items.flashlight);
 
-       
+
 
         let text = {
             Valeria: {
@@ -47,10 +47,10 @@ namespace Endabgabe {
                 T0030: "She is way more talkative than she used to be and keeps forgetting stuff. Maybe it's because I'm sick, but she isn't herself these days. Is she stressed? Hmmm",
 
 
-                T0031: "I'm bored. Should I watch TV today?",
+                T0031: "I'm bored. Should I turn on the radio today?",
                 T0032: "This house is so big. It's so lonely here...",
                 T0033: "Mum and Dad will come back at 6 pm, my brother probably a bit earlier...",
-                T0043: "Should I watch a movie?",
+                T0034: "Should I listen to some music?",
 
             },
             Mum: {
@@ -69,44 +69,107 @@ namespace Endabgabe {
             Neighbor: {
                 T0001: "Hello Sweetheart, how are you doing? Everything is good? Yeah? Listen, I am in bit of a hurry. Tell me, why did your family not show up at the annual BBQ party at my house, huh?",
                 T0002: "Have I done something wrong? Is your mum angry with me? If it's still about that stupid salat bowl argument, tell her I'm sorry. But I always thought your mum wouldn't mind stuff like that!",
-                T0003: "! You guys could have at least told me that you weren't coming this year! ",
+                T0003: "You guys could have at least told me that you weren't coming this year! ",
                 T0004: "People were missing your baked goods! Anyways, hope you guys aren't mad or somethin'. ",
-                T0005: ". See ya and talk to you soon! Oh, and sweetheart, try to stay at home, this city isn't as safe as it used to be, ok? Bye bye!",
+                T0005: "See ya and talk to you soon! Oh, and sweetheart, try to stay at home, this city isn't as safe as it used to be, ok? Bye bye!",
 
             }
         }
-
+        ƒS.Character.hideAll(); 
         ƒS.Speech.hide();
         await ƒS.update(0.2);
         await ƒS.Location.show(locations.bedroom);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
-        await say(characters.valeria, text.Valeria.T0001);
-        await say(characters.valeria, text.Valeria.T0002);
-        await say(characters.valeria, text.Valeria.T0003);
-        await say(characters.valeria, text.Valeria.T0004);
-        await say(characters.valeria, text.Valeria.T0005);
-        await say(characters.valeria, text.Valeria.T0006);
-        await say(characters.valeria, text.Valeria.T0007);
-        await say(characters.valeria, text.Valeria.T0008);
+        await say(characters.valeria, text.Valeria.T0001, true);
+        await say(characters.valeria, text.Valeria.T0002, true);
+        await say(characters.valeria, text.Valeria.T0003, true);
+        await say(characters.valeria, text.Valeria.T0004, true);
+        await say(characters.valeria, text.Valeria.T0005, true);
+        await say(characters.valeria, text.Valeria.T0006, true);
+        await say(characters.valeria, text.Valeria.T0007, true);
+        await say(characters.valeria, text.Valeria.T0008, true);
 
+        if (dataForSave.foundSecretRoom) {
+            ƒS.Speech.hide();
+            await ƒS.update(0.2);
+            await ƒS.Location.show(locations.bedroom); // basement dark
+            await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
-        ƒS.Speech.hide();
-        await ƒS.update(0.2);
-        await ƒS.Location.show(locations.bedroom);
-        await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
-        
-        while (ƒS.Inventory.getAmount(items.flashlight) !=0){
-            await say(characters.valeria, text.Valeria.T0009);
-            await say(characters.valeria, text.Valeria.T0010);
-            await say(characters.valeria, text.Valeria.T0011);
-            
+            while (ƒS.Inventory.getAmount(items.flashlight) != 0) {
+                await say(characters.valeria, text.Valeria.T0009, true);
+                await say(characters.valeria, text.Valeria.T0010, true);
+                await say(characters.valeria, text.Valeria.T0011, true);
+
+            }
+            ƒS.Inventory.close();
+            await ƒS.Location.show(locations.hallway); // basement light
+            await ƒS.update();
+            await say(characters.valeria, text.Valeria.T0012, true);
+            await say(characters.valeria, text.Valeria.T0013, true);
+            await say(characters.valeria, text.Valeria.T0014, true);
+            await say(characters.valeria, text.Valeria.T0015, true);
+            await say(characters.valeria, text.Valeria.T0016, true);
+
+            ƒS.Speech.hide();
+            await ƒS.update(0.2);
+            await ƒS.Location.show(locations.hallway);
+            await say(characters.valeria, text.Valeria.T0017, true);
         }
-        ƒS.Inventory.close();
-        await ƒS.Location.show(locations.hallway);
-        await ƒS.update();
 
-        
+        else {
+            ƒS.Speech.hide();
+            await ƒS.update(0.2);
+            await ƒS.Location.show(locations.diningroom);
+            await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+            await say(characters.valeria, text.Valeria.T0018, true);
+            await say(characters.valeria, text.Valeria.T0019, true);
+            await say(characters.dad, text.Dad.T0001);
+            await say(characters.valeria, text.Valeria.T0020);
+            await say(characters.valeria, text.Valeria.T0021);
+            await say(characters.dad, text.Dad.T0002);
+            await say(characters.valeria, text.Valeria.T0022);
+            await say(characters.mum, text.Mum.T0001);
+            await say(characters.valeria, text.Valeria.T0023);
+
+
+
+            await ƒS.update(0.2);
+            await ƒS.Location.show(locations.office); 
+            await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+            await say(characters.mum, text.Mum.T0002);
+            await say(characters.valeria, text.Valeria.T0024);
+            await say(characters.dad, text.Dad.T0003);
+            await say(characters.valeria, text.Valeria.T0025);
+            await say(characters.mum, text.Mum.T0003);
+            await say(characters.dad, text.Dad.T0004);
+        }
+
+        ƒS.Speech.hide();
+        await ƒS.update(0.2);
+        await ƒS.Location.show(locations.houseDay); 
+        await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+        await say(characters.neighbor, text.Neighbor.T0001);
+        await say(characters.neighbor, text.Neighbor.T0002);
+        await say(characters.neighbor, text.Neighbor.T0003);
+        await say(characters.neighbor, text.Neighbor.T0004);
+        await say(characters.neighbor, text.Neighbor.T0005);
+
+        await say(characters.valeria, text.Valeria.T0026);
+        await say(characters.valeria, text.Valeria.T0027, true);
+        await say(characters.valeria, text.Valeria.T0028, true);
+        await say(characters.valeria, text.Valeria.T0029, true);
+        await say(characters.valeria, text.Valeria.T0030, true);
+
+
+        ƒS.Speech.hide();
+        await ƒS.update(0.2);
+        await ƒS.Location.show(locations.livingroom); 
+        await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+        await say(characters.valeria, text.Valeria.T0031, true);
+        await say(characters.valeria, text.Valeria.T0032, true);
+        await say(characters.valeria, text.Valeria.T0033, true);
+        await say(characters.valeria, text.Valeria.T0034, true);
 
     }
 }

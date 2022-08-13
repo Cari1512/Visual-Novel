@@ -52,6 +52,22 @@ namespace Endabgabe {
     act1: {
       name: "act1",
       background: "Images/Text/Act1.jpg",
+    },
+    office: {
+      name: "office",
+      background: "Images/Backgrounds/office.jpg",
+    },
+    livingroom: {
+      name: "livingroom",
+      background: "Images/Backgrounds/livingRoom.jpg",
+    },
+    houseDay: {
+      name: "houseDay",
+      background: "Images/Backgrounds/houseDay.jpg",
+    },
+    car: {
+      name: "car",
+      background: "Images/Backgrounds/car.jpg",
     }
   };
 
@@ -77,6 +93,14 @@ namespace Endabgabe {
     },
     valeria: {
       name: "Valeria",
+      origin: ƒS.ORIGIN.BOTTOMCENTER,
+      pose: {
+        angry: "Pfad",
+        happy: "Images/Character/Adelinde_smile.png",
+      }
+    },
+    neighbor: {
+      name: "Ms Anne",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
         angry: "Pfad",
@@ -162,11 +186,12 @@ namespace Endabgabe {
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
 
-      { scene: OddThings, name: "OddThings", id: "OddThings" },
+      
       
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },
+      { scene: OddThings, name: "OddThings", id: "OddThings" },
       
 
     ];
