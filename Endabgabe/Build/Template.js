@@ -43,11 +43,19 @@ var Endabgabe;
         },
         secretroom: {
             name: "secretroom",
-            background: "Images/Backgrounds/bedroom.png",
+            background: "Images/Backgrounds/basementDark.jpg",
+        },
+        secretroomLight: {
+            name: "secretroom",
+            background: "Images/Backgrounds/basementLight.jpg",
         },
         act1: {
             name: "act1",
             background: "Images/Text/Act1.jpg",
+        },
+        act2: {
+            name: "act2",
+            background: "Images/Text/Act2.jpg",
         },
         office: {
             name: "office",
@@ -60,6 +68,10 @@ var Endabgabe;
         houseDay: {
             name: "houseDay",
             background: "Images/Backgrounds/houseDay.jpg",
+        },
+        houseNight: {
+            name: "houseDay",
+            background: "Images/Backgrounds/houseNight.jpg",
         },
         car: {
             name: "car",
@@ -74,15 +86,19 @@ var Endabgabe;
             name: "Mum",
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
             pose: {
-                happy: "Images/Character/Adelinde_smile.png",
+                neutral: "Images/Character/Mum_neutral.png",
+                happy: "Images/Character/mum_smile.png",
+                talking: "Images/Character/Mum_talking.png",
+                confused: "Images/Character/Mum_confused.png",
             }
         },
         dad: {
             name: "Dad",
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
             pose: {
-                angry: "Pfad",
-                happy: "Images/Character/Adelinde_smile.png",
+                neutral: "Images/Character/Dad_neutral.png",
+                talking: "Images/Character/Dad_talking.png",
+                angry: "Images/Character/Dad_angry.png",
             }
         },
         valeria: {
@@ -98,6 +114,14 @@ var Endabgabe;
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
             pose: {
                 angry: "Pfad",
+                happy: "Images/Character/Adelinde_smile.png",
+            }
+        },
+        brother: {
+            name: "Brother",
+            origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
+            pose: {
+                angry: "Images/Character/Adelinde_smile.png",
                 happy: "Images/Character/Adelinde_smile.png",
             }
         }
@@ -163,6 +187,12 @@ var Endabgabe;
             image: "./Images/Items/flashlight.png",
             static: false,
         },
+        key: {
+            name: "Key",
+            description: "key to the basement room",
+            image: "./Images/Items/flashlight.png",
+            static: false,
+        },
     };
     Endabgabe.dataForSave = {
         foundSecretRoom: false
@@ -174,6 +204,12 @@ var Endabgabe;
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
             { scene: Endabgabe.OddThings, name: "OddThings", id: "OddThings" },
+            { scene: Endabgabe.Suspicion, name: "Suspicion", id: "Suspicion" },
+            { scene: Endabgabe.Knife, name: "Knife", id: "Knife" },
+            { scene: Endabgabe.Panic, name: "Panic", id: "Panic" },
+            //Act 2
+            { scene: Endabgabe.GoingBack, name: "GoingBack", id: "GoingBack" },
+            { scene: Endabgabe.Confronting, name: "Confronting", id: "Confronting" },
         ];
         let uiElement = document.querySelector("[type=interface]");
         Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
@@ -181,48 +217,6 @@ var Endabgabe;
         // start the sequence
         Endabgabe.ƒS.Progress.go(scenes);
     }
-})(Endabgabe || (Endabgabe = {}));
-var Endabgabe;
-(function (Endabgabe) {
-    async function Scene() {
-        console.log("FudgeStory Template Scene starting");
-        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
-        gameMenu.open();
-        let text = {
-            Narrator: {
-                T0001: "Hallo ich bin der Narrator"
-            },
-            Adeline: {
-                T0001: "hi Hello Juhu"
-            }
-        };
-        //ƒS.Sound.play()
-        await Endabgabe.ƒS.Location.show(Endabgabe.locations.city);
-        await Endabgabe.ƒS.update();
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.adeline, Endabgabe.characters.adeline.pose.happy, Endabgabe.ƒS.positions.bottomcenter);
-        await Endabgabe.ƒS.update(0.6);
-        //ƒS.Character.hideAll()
-        await Endabgabe.ƒS.Speech.tell(Endabgabe.characters.adeline, text.Adeline.T0001);
-        await Endabgabe.ƒS.Speech.tell(Endabgabe.characters.narrator, text.Narrator.T0001);
-        Endabgabe.ƒS.Speech.hide();
-        await Endabgabe.ƒS.update();
-        let firstDialogAnswer = {
-            iSayOk: "Okay",
-            iSayNo: "No",
-        };
-        let firstDialog = await Endabgabe.ƒS.Menu.getInput(firstDialogAnswer, "decision");
-        switch (firstDialog) {
-            case firstDialogAnswer.iSayOk:
-                await Endabgabe.ƒS.Speech.tell(Endabgabe.characters.narrator, "Ich sage okay");
-                return "SceneOkay";
-            case firstDialogAnswer.iSayNo:
-                await Endabgabe.ƒS.Speech.tell(Endabgabe.characters.narrator, "ich sage nö");
-                return "SceneNö";
-        }
-        return "Scene";
-    }
-    Endabgabe.Scene = Scene;
-    ;
 })(Endabgabe || (Endabgabe = {}));
 var Endabgabe;
 (function (Endabgabe) {
@@ -259,7 +253,7 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.ƒS.positions.bottomleft);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.happy, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0004);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
@@ -316,7 +310,7 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0001);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.happy, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.talking, Endabgabe.ƒS.positions.bottomright);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0001);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003);
@@ -361,6 +355,56 @@ var Endabgabe;
         }
     }
     Endabgabe.AskingFamily = AskingFamily;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function Knife() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "I couldn’t sleep last night; I am so confused about what is happening… Everyone behaves like always, am I imagining things?  ",
+                T0002: "Yes, but all knives are in the dishwasher, where can I find one?",
+                T0003: "What....?Is happening? ",
+                T0004: "Mum, omg I think I can see mum!",
+                T0005: "Mum!! ...",
+                T0006: "That's my mum, but she looks different, like before. Like in my childhood!",
+                T0007: "I remember now...my head hurts...arghhh",
+                T0008: "My memories came back. She is not my mum. That woman is not my real mother, neither is the boy my brother or the man my dad. They are not my family. Who are these people?",
+                T0009: "Where is my family?? Ok, lets not panic, lets breath!",
+                T0010: "Sorry, everything is fine. Don’t worry, trust me.",
+            },
+            Mum: {
+                T0011: "Darling, could you please cut the vegetables?",
+                T0012: "There are still some old ones in the bottom drawer!",
+                T0013: "Valeria! Are you ok? What's happening?"
+            },
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0011);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0012);
+        // flashback kinda background
+        // knifes in hand, turnes bloody (animation??)
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
+        // back to reality
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0013);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010);
+        return "Panic";
+    }
+    Endabgabe.Knife = Knife;
 })(Endabgabe || (Endabgabe = {}));
 var Endabgabe;
 (function (Endabgabe) {
@@ -427,7 +471,7 @@ var Endabgabe;
         Endabgabe.ƒS.Character.hideAll();
         Endabgabe.ƒS.Speech.hide();
         await Endabgabe.ƒS.update(0.2);
-        await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
@@ -440,7 +484,7 @@ var Endabgabe;
         if (Endabgabe.dataForSave.foundSecretRoom) {
             Endabgabe.ƒS.Speech.hide();
             await Endabgabe.ƒS.update(0.2);
-            await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom); // basement dark
+            await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroom);
             await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
             while (Endabgabe.ƒS.Inventory.getAmount(Endabgabe.items.flashlight) != 0) {
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
@@ -448,7 +492,7 @@ var Endabgabe;
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0011, true);
             }
             Endabgabe.ƒS.Inventory.close();
-            await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway); // basement light
+            await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroomLight);
             await Endabgabe.ƒS.update();
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0012, true);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0013, true);
@@ -458,6 +502,7 @@ var Endabgabe;
             Endabgabe.ƒS.Speech.hide();
             await Endabgabe.ƒS.update(0.2);
             await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+            await Endabgabe.ƒS.update(0.2);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0017, true);
         }
         else {
@@ -467,6 +512,9 @@ var Endabgabe;
             await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0018, true);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0019, true);
+            await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.ƒS.positions.bottomleft);
+            await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
+            await Endabgabe.ƒS.update(0.2);
             await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0001);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0021);
@@ -506,8 +554,120 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0032, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0033, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0034, true);
+        // Radio Interaction: Alex....
+        return "Suspicion";
     }
     Endabgabe.OddThings = OddThings;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function Panic() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "it's been 2 days...and I am panicking.",
+                T0002: "They are not my family, but where else can I go. Who are there? Where is my real family?",
+                T0003: "Are they dangerous? I should go! I should leave, now! Before they find out! They aren't home yet!",
+                T0004: "Quick, it's getting dark already.",
+                T0005: "Shit...they are back! Ok, stay calm!",
+                T0006: "They don't seem to suspect me. It will be dangerous to run away now...who knows what they might do to me.... let's go back with them...just for now.",
+            },
+            Dad: {
+                T0007: "Valeria, what are you doing out here? You should stay inside!",
+            },
+            Mum: {
+                T0008: "Darling, where are you going? Let's go back inside.",
+            }
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom); // black screen
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.houseNight);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
+        // sound of car
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.happy, Endabgabe.ƒS.positions.bottomcenter);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0007);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0008);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
+        return "GoingBack";
+    }
+    Endabgabe.Panic = Panic;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function Suspicion() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "I should go! ",
+                T0002: "I know what...? Should I know something?... What are they hiding?",
+                T0003: "he's awake...",
+                T0004: "What do you mean? Pretending what? I heard you talking to mum. What is wrong with you?",
+                T0005: "Well, aren't you the one acting weird? Are YOU just pretending? What is it I don't know?",
+                T0006: "Yes, but all knives are in the dishwasher, where can I find one?",
+            },
+            Mum: {
+                T0007: "What do you mean?",
+                T0008: "No, don't worry, you must be imagining it. She has no clue. She doesn't remember!",
+            },
+            Brother: {
+                T0009: "I think she knows something! She's behaving oddly!",
+                T0010: "You think? Listen, she might not remember stuff, but we have to be more careful! Wait...",
+                T0011: "You little piece of shit. Are you just pretending, huh? ",
+                T0012: "yeah, yeah, keep on dreaming, let's wait until your memories come back. You won't be able to sleep then. Sweet dreams",
+                T0013: "oh hoo, you are really good at acting, huh? ",
+                T0014: "Don't worry sister, you will know soon enough.",
+            }
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0007);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0009);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0008);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0010);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.angry, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0011);
+        //Entscheidung
+        let sleepingAnswer = {
+            pretending: "Pretending to be asleep",
+            wakingUp: "Waking up",
+        };
+        let sleeping = await Endabgabe.ƒS.Menu.getInput(sleepingAnswer, "decision");
+        switch (sleeping) {
+            case sleepingAnswer.pretending:
+                await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0012);
+                return "Knife";
+            case sleepingAnswer.wakingUp:
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004);
+                await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0013);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
+                await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0014);
+                return "Knife";
+        }
+    }
+    Endabgabe.Suspicion = Suspicion;
 })(Endabgabe || (Endabgabe = {}));
 var Endabgabe;
 (function (Endabgabe) {
@@ -550,6 +710,8 @@ var Endabgabe;
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
                 await Endabgabe.ƒS.update(3);
+                await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroom);
+                await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
@@ -563,5 +725,125 @@ var Endabgabe;
         }
     }
     Endabgabe.ThePicture = ThePicture;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function Confronting() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+    }
+    Endabgabe.Confronting = Confronting;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function GoingBack() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "They all stayed at home today. They are watching.",
+                T0002: "When I asked them, why they are not going to work or school, they told me it's because they are worried.... worried about what though? ",
+                T0003: "I'm acting like everything is ok, but I'm not sure if they are also acting, or if they really don't know that I found out that they are not my family. I needed to wait until I am back alone. I need to find out who they are!",
+                T0004: "Today they finally left. I'm alone again. This morning I saw how they drove away. That room...in the basement...I should go back in there.",
+                T0005: "Still creepy in here... but this time it's not as dark as before. Oh...there is another door in the back wall.  ",
+                T0006: "It's locked. How many secret rooms does this house have?",
+                T0007: "Where could the keys be?",
+                //9.1
+                T0008: "No, nothing in her purse.",
+                T0009: "Maybe dad has the keys. If there is a place he would hide the keys, it's probably in his study. Let's check!",
+                T0010: "Why are they back already?",
+                //9.2
+                T0011: "so many places it could be hidden...",
+                T0012: "Why is it so messy...? I will never find the keys. What would be a logical spot to hide the keys? Inside some drawers, on the shelves... oh wait, I think they should be in here!",
+                T0013: "Yes! That's the key!",
+                //9.3
+                T0014: "Good thing dad gave my brother a ride to work today. Let's look inside.",
+                T0015: "...he should really throw away some empty bottles....eww are those some old fries? Anyways let's search! ",
+                T0016: "is that a search warrant? What?",
+                T0017: "What is that? I know you are not my brother, so who are you?",
+                T0018: "What?... They are all dead?",
+                T0019: "Arghh... my head",
+            },
+            Brother: {
+                T0020: "What do you think you're doing, sister? Snooping around in my car while I'm gone?",
+                T0021: "Listen, your family was found dead, here in this house, in the room down in the basement. What do you know about it?",
+                T0022: "There was a girl found in the basement. She was abused and held captive. She had long red hair, green shining eyes and was really.... ",
+                T0023: "thin...Valeria...",
+            }
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.act2);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(4);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
+        //sound trying to open the door
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
+        //Entscheidung
+        let searchingKeys = {
+            momsPurse: "Mum's Purse",
+            dadsStudy: "Dad's Study",
+            brothersCar: "Brother's Car",
+        };
+        let sleeping = await Endabgabe.ƒS.Menu.getInput(searchingKeys, "decision");
+        switch (sleeping) {
+            case searchingKeys.momsPurse:
+                await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
+                await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+                await Endabgabe.ƒS.update(0.5);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
+                await Endabgabe.ƒS.Location.show(Endabgabe.locations.office);
+                await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+                await Endabgabe.ƒS.update(0.5);
+                // car noise and some talking
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010, true);
+                return "Knife"; //10.1
+            case searchingKeys.dadsStudy:
+                await Endabgabe.ƒS.Location.show(Endabgabe.locations.office);
+                await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+                await Endabgabe.ƒS.update(0.5);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0011, true);
+                //sound of opening boxes and searching
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0012, true);
+                //box with key
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0013, true);
+                // key inventory
+                Endabgabe.ƒS.Inventory.add(Endabgabe.items.key);
+                return "Knife"; //10.2
+            case searchingKeys.brothersCar:
+                await Endabgabe.ƒS.Location.show(Endabgabe.locations.car);
+                await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+                await Endabgabe.ƒS.update(0.5);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0014, true);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0015, true);
+                //sound open departments
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0016, true);
+                //sound of steps
+                await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.angry, Endabgabe.ƒS.positions.bottomleft);
+                await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0020);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0017);
+                await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0021);
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0018);
+                await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0022);
+                // blurry view
+                // sound eyes ringing
+                await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0018, true);
+                await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0023);
+                // black screen
+                return "Knife"; //11
+        }
+    }
+    Endabgabe.GoingBack = GoingBack;
 })(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=Template.js.map

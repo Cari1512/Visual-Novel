@@ -75,10 +75,10 @@ namespace Endabgabe {
 
             }
         }
-        ƒS.Character.hideAll(); 
+        ƒS.Character.hideAll();
         ƒS.Speech.hide();
         await ƒS.update(0.2);
-        await ƒS.Location.show(locations.bedroom);
+        await ƒS.Location.show(locations.diningroom);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
         await say(characters.valeria, text.Valeria.T0001, true);
@@ -93,7 +93,7 @@ namespace Endabgabe {
         if (dataForSave.foundSecretRoom) {
             ƒS.Speech.hide();
             await ƒS.update(0.2);
-            await ƒS.Location.show(locations.bedroom); // basement dark
+            await ƒS.Location.show(locations.secretroom); 
             await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
             while (ƒS.Inventory.getAmount(items.flashlight) != 0) {
@@ -103,7 +103,7 @@ namespace Endabgabe {
 
             }
             ƒS.Inventory.close();
-            await ƒS.Location.show(locations.hallway); // basement light
+            await ƒS.Location.show(locations.secretroomLight); 
             await ƒS.update();
             await say(characters.valeria, text.Valeria.T0012, true);
             await say(characters.valeria, text.Valeria.T0013, true);
@@ -114,6 +114,7 @@ namespace Endabgabe {
             ƒS.Speech.hide();
             await ƒS.update(0.2);
             await ƒS.Location.show(locations.hallway);
+            await ƒS.update(0.2);
             await say(characters.valeria, text.Valeria.T0017, true);
         }
 
@@ -124,6 +125,10 @@ namespace Endabgabe {
             await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
             await say(characters.valeria, text.Valeria.T0018, true);
             await say(characters.valeria, text.Valeria.T0019, true);
+
+            await ƒS.Character.show(characters.mum, characters.mum.pose.happy, ƒS.positions.bottomleft);
+            await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, ƒS.positions.bottomright);
+            await ƒS.update(0.2);
             await say(characters.dad, text.Dad.T0001);
             await say(characters.valeria, text.Valeria.T0020);
             await say(characters.valeria, text.Valeria.T0021);
@@ -135,7 +140,7 @@ namespace Endabgabe {
 
 
             await ƒS.update(0.2);
-            await ƒS.Location.show(locations.office); 
+            await ƒS.Location.show(locations.office);
             await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
             await say(characters.mum, text.Mum.T0002);
             await say(characters.valeria, text.Valeria.T0024);
@@ -147,7 +152,7 @@ namespace Endabgabe {
 
         ƒS.Speech.hide();
         await ƒS.update(0.2);
-        await ƒS.Location.show(locations.houseDay); 
+        await ƒS.Location.show(locations.houseDay);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
         await say(characters.neighbor, text.Neighbor.T0001);
         await say(characters.neighbor, text.Neighbor.T0002);
@@ -164,12 +169,16 @@ namespace Endabgabe {
 
         ƒS.Speech.hide();
         await ƒS.update(0.2);
-        await ƒS.Location.show(locations.livingroom); 
+        await ƒS.Location.show(locations.livingroom);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
         await say(characters.valeria, text.Valeria.T0031, true);
         await say(characters.valeria, text.Valeria.T0032, true);
         await say(characters.valeria, text.Valeria.T0033, true);
         await say(characters.valeria, text.Valeria.T0034, true);
+
+        // Radio Interaction: Alex....
+
+        return "Suspicion";
 
     }
 }

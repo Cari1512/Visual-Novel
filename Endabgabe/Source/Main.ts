@@ -47,11 +47,19 @@ namespace Endabgabe {
     },
     secretroom: {
       name: "secretroom",
-      background: "Images/Backgrounds/bedroom.png",
+      background: "Images/Backgrounds/basementDark.jpg",
+    },
+    secretroomLight: {
+      name: "secretroom",
+      background: "Images/Backgrounds/basementLight.jpg",
     },
     act1: {
       name: "act1",
       background: "Images/Text/Act1.jpg",
+    },
+    act2: {
+      name: "act2",
+      background: "Images/Text/Act2.jpg",
     },
     office: {
       name: "office",
@@ -64,6 +72,10 @@ namespace Endabgabe {
     houseDay: {
       name: "houseDay",
       background: "Images/Backgrounds/houseDay.jpg",
+    },
+    houseNight: {
+      name: "houseDay",
+      background: "Images/Backgrounds/houseNight.jpg",
     },
     car: {
       name: "car",
@@ -79,16 +91,19 @@ namespace Endabgabe {
       name: "Mum",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
-
-        happy: "Images/Character/Adelinde_smile.png",
+        neutral: "Images/Character/Mum_neutral.png",
+        happy: "Images/Character/mum_smile.png",
+        talking: "Images/Character/Mum_talking.png",
+        confused: "Images/Character/Mum_confused.png",
       }
     },
     dad: {
       name: "Dad",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
-        angry: "Pfad",
-        happy: "Images/Character/Adelinde_smile.png",
+        neutral: "Images/Character/Dad_neutral.png",
+        talking: "Images/Character/Dad_talking.png",
+        angry: "Images/Character/Dad_angry.png",
       }
     },
     valeria: {
@@ -104,6 +119,14 @@ namespace Endabgabe {
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
         angry: "Pfad",
+        happy: "Images/Character/Adelinde_smile.png",
+      }
+    },
+    brother: {
+      name: "Brother",
+      origin: ƒS.ORIGIN.BOTTOMCENTER,
+      pose: {
+        angry: "Images/Character/Adelinde_smile.png",
         happy: "Images/Character/Adelinde_smile.png",
       }
     }
@@ -176,6 +199,12 @@ namespace Endabgabe {
       image: "./Images/Items/flashlight.png",
       static: false,
     },
+    key: {
+      name: "Key",
+      description: "key to the basement room",
+      image: "./Images/Items/flashlight.png",
+      static: false,
+    },
   }
 
   export let dataForSave = {
@@ -192,6 +221,13 @@ namespace Endabgabe {
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },
       { scene: OddThings, name: "OddThings", id: "OddThings" },
+      { scene: Suspicion, name: "Suspicion", id: "Suspicion" },
+      { scene: Knife, name: "Knife", id: "Knife" },
+      { scene: Panic, name: "Panic", id: "Panic" },
+
+      //Act 2
+      { scene: GoingBack, name: "GoingBack", id: "GoingBack" },
+      { scene: Confronting, name: "Confronting", id: "Confronting" },
       
 
     ];

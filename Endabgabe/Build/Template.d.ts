@@ -39,7 +39,15 @@ declare namespace Endabgabe {
             name: string;
             background: string;
         };
+        secretroomLight: {
+            name: string;
+            background: string;
+        };
         act1: {
+            name: string;
+            background: string;
+        };
+        act2: {
             name: string;
             background: string;
         };
@@ -52,6 +60,10 @@ declare namespace Endabgabe {
             background: string;
         };
         houseDay: {
+            name: string;
+            background: string;
+        };
+        houseNight: {
             name: string;
             background: string;
         };
@@ -68,15 +80,19 @@ declare namespace Endabgabe {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {
+                neutral: string;
                 happy: string;
+                talking: string;
+                confused: string;
             };
         };
         dad: {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {
+                neutral: string;
+                talking: string;
                 angry: string;
-                happy: string;
             };
         };
         valeria: {
@@ -88,6 +104,14 @@ declare namespace Endabgabe {
             };
         };
         neighbor: {
+            name: string;
+            origin: ƒ.ORIGIN2D;
+            pose: {
+                angry: string;
+                happy: string;
+            };
+        };
+        brother: {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {
@@ -112,13 +136,16 @@ declare namespace Endabgabe {
             image: string;
             static: boolean;
         };
+        key: {
+            name: string;
+            description: string;
+            image: string;
+            static: boolean;
+        };
     };
     let dataForSave: {
         foundSecretRoom: boolean;
     };
-}
-declare namespace Endabgabe {
-    function Scene(): ƒS.SceneReturn;
 }
 declare namespace Endabgabe {
     function ANormalDay(): ƒS.SceneReturn;
@@ -127,8 +154,23 @@ declare namespace Endabgabe {
     function AskingFamily(): ƒS.SceneReturn;
 }
 declare namespace Endabgabe {
+    function Knife(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
     function OddThings(): ƒS.SceneReturn;
 }
 declare namespace Endabgabe {
+    function Panic(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function Suspicion(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
     function ThePicture(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function Confronting(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function GoingBack(): ƒS.SceneReturn;
 }

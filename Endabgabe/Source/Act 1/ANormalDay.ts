@@ -40,7 +40,7 @@ namespace Endabgabe {
         await say(characters.valeria, text.Valeria.T0003, true);
 
         await ƒS.Character.show(characters.mum, characters.mum.pose.happy, ƒS.positions.bottomleft);
-        await ƒS.Character.show(characters.dad, characters.dad.pose.happy, ƒS.positions.bottomright);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, ƒS.positions.bottomright);
         await ƒS.update(0.2);
 
         await say(characters.mum, text.Mum.T0004);

@@ -50,6 +50,8 @@ namespace Endabgabe {
                 await say(characters.valeria, text.Valeria.T0004, true);
                 await say(characters.valeria, text.Valeria.T0020, true);
                 await ƒS.update(3);
+                await ƒS.Location.show(locations.secretroom);
+                await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
                 await say(characters.valeria, text.Valeria.T0005, true);
                 await say(characters.valeria, text.Valeria.T0006, true);
                 await say(characters.valeria, text.Valeria.T0007, true);

@@ -46,7 +46,7 @@ namespace Endabgabe {
         await say(characters.valeria, text.Valeria.T0001);
         await say(characters.mum, text.Mum.T0001);
         await say(characters.valeria, text.Valeria.T0002);
-        await ƒS.Character.show(characters.dad, characters.dad.pose.happy, ƒS.positions.bottomright);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.talking, ƒS.positions.bottomright);
         await ƒS.update(0.2);
         await say(characters.dad, text.Dad.T0001);
         await say(characters.valeria, text.Valeria.T0003);
