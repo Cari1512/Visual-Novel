@@ -210,6 +210,8 @@ var Endabgabe;
             //Act 2
             { scene: Endabgabe.GoingBack, name: "GoingBack", id: "GoingBack" },
             { scene: Endabgabe.Confronting, name: "Confronting", id: "Confronting" },
+            { scene: Endabgabe.TryingKey, name: "TryingKey", id: "TryingKey" },
+            { scene: Endabgabe.Valeria, name: "Valeria", id: "Valeria" },
         ];
         let uiElement = document.querySelector("[type=interface]");
         Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
@@ -731,6 +733,54 @@ var Endabgabe;
     async function Confronting() {
         let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
         gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "What room is next to the basement room?",
+                T0002: "I don't...",
+                T0003: "Dad's hand...on my neck...I can't move",
+                T0004: "Gosh, it’s so dark again...",
+                T0005: "Remember what?",
+                T0006: "Who are you, people? What have you done?",
+            },
+            Mum: {
+                T0007: "You know, don't you? You know what's inside that room?",
+                T0008: "Liar! Do not lie to me. You should know! I will show you, come with me.",
+                T0009: "This is where your family was killed. All stabbed by a knife, multiple times",
+                T0010: "They found a girl in the basement. You…",
+            },
+            Dad: {
+                T0011: "Do you remember?",
+            }
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0007);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.confused, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0008);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroomLight);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        // key noises
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroomLight); // backroom
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
+        await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0011);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0009);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006);
+        await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0010);
+        //dumpfer sound, black out, pfeifen in denOhren
+        return "Valeria"; //11
     }
     Endabgabe.Confronting = Confronting;
 })(Endabgabe || (Endabgabe = {}));
@@ -808,7 +858,7 @@ var Endabgabe;
                 await Endabgabe.ƒS.update(0.5);
                 // car noise and some talking
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010, true);
-                return "Knife"; //10.1
+                return "Confronting"; //10.1
             case searchingKeys.dadsStudy:
                 await Endabgabe.ƒS.Location.show(Endabgabe.locations.office);
                 await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
@@ -820,7 +870,7 @@ var Endabgabe;
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0013, true);
                 // key inventory
                 Endabgabe.ƒS.Inventory.add(Endabgabe.items.key);
-                return "Knife"; //10.2
+                return "TryingKey"; //10.2
             case searchingKeys.brothersCar:
                 await Endabgabe.ƒS.Location.show(Endabgabe.locations.car);
                 await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
@@ -841,9 +891,71 @@ var Endabgabe;
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0018, true);
                 await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0023);
                 // black screen
-                return "Knife"; //11
+                return "Valeria"; //11
         }
     }
     Endabgabe.GoingBack = GoingBack;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function TryingKey() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "ok, let's try the key. It's in my pocket.",
+                T0002: "I should try the key, it's in my pocket!",
+                T0003: "You can get the key in the inventory.",
+                T0004: "Omg, it's another room. Very tiny.",
+                T0005: "I remember this room. Somehow. I recognize it...?",
+                T0006: "What...is..argh! My head!",
+                T0007: "It hurts...so...much.",
+            }
+        };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom); //door
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        while (Endabgabe.ƒS.Inventory.getAmount(Endabgabe.items.key) != 0) {
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
+            await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
+        }
+        Endabgabe.ƒS.Inventory.close();
+        //opening door sound
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroomLight); //second room
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
+        //heavy breathing, blurry view, high tone pitch
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
+        //black screen
+        return "Valeria"; //11
+    }
+    Endabgabe.TryingKey = TryingKey;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
+    async function Valeria() {
+        let gameMenu = Endabgabe.ƒS.Menu.create(Endabgabe.ingameButtons, Endabgabe.btnFunctionalities, "gameMenu");
+        gameMenu.open();
+        let text = {
+            Valeria: {
+                T0001: "laugthing",
+            },
+            Brother: {
+                T0001: "Valeria",
+                T0002: "We found you in the basement that day. ",
+                T0003: "It was traumatic, the murder, wasn't it?",
+                T0004: "You couldn't remember. So, we played your family. I was your brother, just so you can recall some memories.",
+                T0005: "Did it help?",
+                T0006: "So it did help...",
+                T0007: "Valeria",
+                T0008: "Why did you kill them?",
+            }
+        };
+    }
+    Endabgabe.Valeria = Valeria;
 })(Endabgabe || (Endabgabe = {}));
 //# sourceMappingURL=Template.js.map

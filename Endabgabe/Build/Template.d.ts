@@ -174,3 +174,9 @@ declare namespace Endabgabe {
 declare namespace Endabgabe {
     function GoingBack(): ƒS.SceneReturn;
 }
+declare namespace Endabgabe {
+    function TryingKey(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function Valeria(): ƒS.SceneReturn;
+}

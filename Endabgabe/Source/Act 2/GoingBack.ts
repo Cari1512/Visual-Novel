@@ -81,7 +81,7 @@ namespace Endabgabe {
                 await ƒS.update(0.5);
                 // car noise and some talking
                 await say(characters.valeria, text.Valeria.T0010, true);
-                return "Knife";//10.1
+                return "Confronting";//10.1
 
             case searchingKeys.dadsStudy:
                 await ƒS.Location.show(locations.office);
@@ -94,7 +94,7 @@ namespace Endabgabe {
                 await say(characters.valeria, text.Valeria.T0013, true);
                 // key inventory
                 ƒS.Inventory.add(items.key);
-                return "Knife"; //10.2
+                return "TryingKey"; //10.2
 
             case searchingKeys.brothersCar:
                 await ƒS.Location.show(locations.car);
@@ -116,7 +116,7 @@ namespace Endabgabe {
                 await say(characters.valeria, text.Valeria.T0018, true);
                 await say(characters.brother, text.Brother.T0023);
                 // black screen
-                return "Knife"; //11
+                return "Valeria"; //11
 
                 
 

@@ -228,6 +228,8 @@ namespace Endabgabe {
       //Act 2
       { scene: GoingBack, name: "GoingBack", id: "GoingBack" },
       { scene: Confronting, name: "Confronting", id: "Confronting" },
+      { scene: TryingKey, name: "TryingKey", id: "TryingKey" },
+      { scene: Valeria, name: "Valeria", id: "Valeria" },
       
 
     ];
