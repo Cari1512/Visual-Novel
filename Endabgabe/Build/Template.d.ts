@@ -77,9 +77,6 @@ declare namespace Endabgabe {
         };
     };
     let characters: {
-        narrator: {
-            name: string;
-        };
         mum: {
             name: string;
             origin: ƒ.ORIGIN2D;
@@ -111,7 +108,6 @@ declare namespace Endabgabe {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {
-                angry: string;
                 happy: string;
             };
         };

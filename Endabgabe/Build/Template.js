@@ -63,7 +63,7 @@ var Endabgabe;
         },
         livingroom: {
             name: "livingroom",
-            background: "Images/Backgrounds/livingRoom.jpg",
+            background: "Images/Backgrounds/livingRoomRadio.jpg",
         },
         houseDay: {
             name: "houseDay",
@@ -75,7 +75,7 @@ var Endabgabe;
         },
         flashback: {
             name: "flashback",
-            background: "Images/Backgrounds/flashback",
+            background: "Images/Backgrounds/flashback.jpg",
         },
         car: {
             name: "car",
@@ -83,9 +83,6 @@ var Endabgabe;
         }
     };
     Endabgabe.characters = {
-        narrator: {
-            name: "",
-        },
         mum: {
             name: "Mum",
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
@@ -117,16 +114,15 @@ var Endabgabe;
             name: "Ms Anne",
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
             pose: {
-                angry: "Pfad",
-                happy: "Images/Character/Adelinde_smile.png",
+                happy: "Images/Character/neighbor.png",
             }
         },
         brother: {
             name: "Brother",
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
             pose: {
-                angry: "Images/Character/Adelinde_smile.png",
-                happy: "Images/Character/Adelinde_smile.png",
+                angry: "Images/Character/Brother_angry.png",
+                happy: "Images/Character/Brother_neutral.png",
             }
         },
         knife: {
@@ -225,7 +221,7 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
-            { scene: Endabgabe.Knife, name: "Knife", id: "Knife" },
+            { scene: Endabgabe.OddThings, name: "OddThings", id: "OddThings" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -591,16 +587,22 @@ var Endabgabe;
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0025);
             await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0003);
             await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0004);
+            await Endabgabe.ƒS.Character.hide(Endabgabe.characters.dad);
+            await Endabgabe.ƒS.Character.hide(Endabgabe.characters.mum);
+            await Endabgabe.ƒS.update(0.2);
         }
         Endabgabe.ƒS.Speech.hide();
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.houseDay);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.neighbor, Endabgabe.characters.neighbor.pose.happy, Endabgabe.ƒS.positions.bottomleft);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0001);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0002);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0003);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0004);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0005);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.neighbor);
+        await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0026);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0027, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0028, true);

@@ -148,17 +148,24 @@ namespace Endabgabe {
             await say(characters.valeria, text.Valeria.T0025);
             await say(characters.mum, text.Mum.T0003);
             await say(characters.dad, text.Dad.T0004);
+            await ƒS.Character.hide(characters.dad);
+            await ƒS.Character.hide(characters.mum);
+            await ƒS.update(0.2);
         }
 
         ƒS.Speech.hide();
         await ƒS.update(0.2);
         await ƒS.Location.show(locations.houseDay);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
+        await ƒS.Character.show(characters.neighbor, characters.neighbor.pose.happy, ƒS.positions.bottomleft);
         await say(characters.neighbor, text.Neighbor.T0001);
         await say(characters.neighbor, text.Neighbor.T0002);
         await say(characters.neighbor, text.Neighbor.T0003);
         await say(characters.neighbor, text.Neighbor.T0004);
         await say(characters.neighbor, text.Neighbor.T0005);
+
+        await ƒS.Character.hide(characters.neighbor);
+            await ƒS.update(0.2);
 
         await say(characters.valeria, text.Valeria.T0026);
         await say(characters.valeria, text.Valeria.T0027, true);

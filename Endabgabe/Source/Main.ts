@@ -67,7 +67,7 @@ namespace Endabgabe {
     },
     livingroom: {
       name: "livingroom",
-      background: "Images/Backgrounds/livingRoom.jpg",
+      background: "Images/Backgrounds/livingRoomRadio.jpg",
     },
     houseDay: {
       name: "houseDay",
@@ -79,7 +79,7 @@ namespace Endabgabe {
     },
     flashback: {
       name: "flashback",
-      background: "Images/Backgrounds/flashback",
+      background: "Images/Backgrounds/flashback.jpg",
     },
     car: {
       name: "car",
@@ -88,9 +88,7 @@ namespace Endabgabe {
   };
 
   export let characters = {
-    narrator: {
-      name: "",
-    },
+    
     mum: {
       name: "Mum",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
@@ -122,16 +120,15 @@ namespace Endabgabe {
       name: "Ms Anne",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
-        angry: "Pfad",
-        happy: "Images/Character/Adelinde_smile.png",
+        happy: "Images/Character/neighbor.png",
       }
     },
     brother: {
       name: "Brother",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
-        angry: "Images/Character/Adelinde_smile.png",
-        happy: "Images/Character/Adelinde_smile.png",
+        angry: "Images/Character/Brother_angry.png",
+        happy: "Images/Character/Brother_neutral.png",
       }
     },
     knife:{
@@ -240,8 +237,8 @@ namespace Endabgabe {
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
-      { scene: Knife, name: "Knife", id: "Knife" },
-      
+     
+      { scene: OddThings, name: "OddThings", id: "OddThings" },
       
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
