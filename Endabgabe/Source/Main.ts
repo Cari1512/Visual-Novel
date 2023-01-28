@@ -240,7 +240,7 @@ namespace Endabgabe {
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
-     
+      { scene: Knife, name: "Knife", id: "Knife" },
       
       
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },

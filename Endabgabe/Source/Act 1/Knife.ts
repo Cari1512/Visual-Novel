@@ -36,6 +36,7 @@ namespace Endabgabe {
         await say(characters.mum, text.Mum.T0011);
         await say(characters.valeria, text.Valeria.T0002);
         await say(characters.mum, text.Mum.T0012);
+        await ƒS.Character.hide(characters.mum);
 
         // flashback kinda background
         // knifes in hand, turnes bloody (animation??)
@@ -45,20 +46,28 @@ namespace Endabgabe {
         await ƒS.update(0.2);
         await ƒS.Character.show(characters.knife, characters.knife.pose.one, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.two, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.three, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.four, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.five, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.six, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.seven, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.eight, ƒS.positions.center);
         await ƒS.update(0.2);
+        await ƒS.Character.hide(characters.knife);
 
         await say(characters.valeria, text.Valeria.T0003, true);
         await say(characters.valeria, text.Valeria.T0004, true);

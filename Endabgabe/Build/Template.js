@@ -225,6 +225,7 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
+            { scene: Endabgabe.Knife, name: "Knife", id: "Knife" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -417,6 +418,7 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0011);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0012);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.mum);
         // flashback kinda background
         // knifes in hand, turnes bloody (animation??)
         Endabgabe.ƒS.Speech.hide();
@@ -425,20 +427,28 @@ var Endabgabe;
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.one, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.two, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.three, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.four, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.five, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.six, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.seven, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.eight, Endabgabe.ƒS.positions.center);
         await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
