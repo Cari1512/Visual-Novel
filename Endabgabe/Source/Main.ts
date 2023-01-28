@@ -77,6 +77,10 @@ namespace Endabgabe {
       name: "houseDay",
       background: "Images/Backgrounds/houseNight.jpg",
     },
+    flashback: {
+      name: "flashback",
+      background: "Images/Backgrounds/flashback",
+    },
     car: {
       name: "car",
       background: "Images/Backgrounds/car.jpg",
@@ -129,7 +133,29 @@ namespace Endabgabe {
         angry: "Images/Character/Adelinde_smile.png",
         happy: "Images/Character/Adelinde_smile.png",
       }
+    },
+    knife:{
+      name: "Knife",
+      origin: ƒS.ORIGIN.CENTER,
+      pose:{
+        one: "Images/Items/knife.png",
+        two: "Images/Items/knife1.png",
+        three: "Images/Items/knife2.png",
+        four: "Images/Items/knife3.png",
+        five: "Images/Items/knife4.png",
+        six: "Images/Items/knife5.png",
+        seven: "Images/Items/knife6.png",
+        eight: "Images/Items/knife7.png",
+      }
     }
+  };
+
+  export let newPositions = {
+    bottomleft: new FudgeStory.Position(-460, -540),
+    bottomright: new FudgeStory.Position(470, -540),
+    bottomcenter: new FudgeStory.Position(0, -540),
+    rightout: new FudgeStory.Position(2470, -540),
+    leftout: new FudgeStory.Position(-2470, -540),
   };
 
   // Menu
@@ -214,7 +240,7 @@ namespace Endabgabe {
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
-
+     
       
       
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },

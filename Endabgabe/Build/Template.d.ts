@@ -67,6 +67,10 @@ declare namespace Endabgabe {
             name: string;
             background: string;
         };
+        flashback: {
+            name: string;
+            background: string;
+        };
         car: {
             name: string;
             background: string;
@@ -119,6 +123,27 @@ declare namespace Endabgabe {
                 happy: string;
             };
         };
+        knife: {
+            name: string;
+            origin: ƒ.ORIGIN2D;
+            pose: {
+                one: string;
+                two: string;
+                three: string;
+                four: string;
+                five: string;
+                six: string;
+                seven: string;
+                eight: string;
+            };
+        };
+    };
+    let newPositions: {
+        bottomleft: ƒ.Vector2;
+        bottomright: ƒ.Vector2;
+        bottomcenter: ƒ.Vector2;
+        rightout: ƒ.Vector2;
+        leftout: ƒ.Vector2;
     };
     let ingameButtons: {
         inventory: string;

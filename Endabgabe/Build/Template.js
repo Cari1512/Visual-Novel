@@ -73,6 +73,10 @@ var Endabgabe;
             name: "houseDay",
             background: "Images/Backgrounds/houseNight.jpg",
         },
+        flashback: {
+            name: "flashback",
+            background: "Images/Backgrounds/flashback",
+        },
         car: {
             name: "car",
             background: "Images/Backgrounds/car.jpg",
@@ -124,7 +128,28 @@ var Endabgabe;
                 angry: "Images/Character/Adelinde_smile.png",
                 happy: "Images/Character/Adelinde_smile.png",
             }
+        },
+        knife: {
+            name: "Knife",
+            origin: Endabgabe.ƒS.ORIGIN.CENTER,
+            pose: {
+                one: "Images/Items/knife.png",
+                two: "Images/Items/knife1.png",
+                three: "Images/Items/knife2.png",
+                four: "Images/Items/knife3.png",
+                five: "Images/Items/knife4.png",
+                six: "Images/Items/knife5.png",
+                seven: "Images/Items/knife6.png",
+                eight: "Images/Items/knife7.png",
+            }
         }
+    };
+    Endabgabe.newPositions = {
+        bottomleft: new FudgeStory.Position(-460, -540),
+        bottomright: new FudgeStory.Position(470, -540),
+        bottomcenter: new FudgeStory.Position(0, -540),
+        rightout: new FudgeStory.Position(2470, -540),
+        leftout: new FudgeStory.Position(-2470, -540),
     };
     // Menu
     Endabgabe.ingameButtons = {
@@ -368,10 +393,10 @@ var Endabgabe;
                 T0001: "I couldn’t sleep last night; I am so confused about what is happening… Everyone behaves like always, am I imagining things?  ",
                 T0002: "Yes, but all knives are in the dishwasher, where can I find one?",
                 T0003: "What....?Is happening? ",
-                T0004: "Mum, omg I think I can see mum!",
+                T0004: "Mum, omg whats happening?! The knife...",
                 T0005: "Mum!! ...",
-                T0006: "That's my mum, but she looks different, like before. Like in my childhood!",
-                T0007: "I remember now...my head hurts...arghhh",
+                T0006: "That's my mum in my memory, but she looks different, like before. Like in my childhood!",
+                T0007: "This knife...I remember now...my head hurts...arghhh",
                 T0008: "My memories came back. She is not my mum. That woman is not my real mother, neither is the boy my brother or the man my dad. They are not my family. Who are these people?",
                 T0009: "Where is my family?? Ok, lets not panic, lets breath!",
                 T0010: "Sorry, everything is fine. Don’t worry, trust me.",
@@ -394,12 +419,35 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0012);
         // flashback kinda background
         // knifes in hand, turnes bloody (animation??)
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.flashback);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.one, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.two, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.three, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.four, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.five, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.six, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.seven, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.eight, Endabgabe.ƒS.positions.center);
+        await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
         // back to reality
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0013);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
