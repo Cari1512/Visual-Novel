@@ -28,19 +28,24 @@ namespace Endabgabe {
         }
 
         ƒS.Speech.hide();
+        ƒS.Sound.play(sound.theme1, 0.4, true);
         await ƒS.Location.show(locations.act1);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(5);
         await ƒS.Location.show(locations.diningroom);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
+        ƒS.Sound.fade(sound.theme1, 0, 3);
+        ƒS.Sound.play(sound.indoors, 0.7, true);
+        
+    
         await ƒS.update(0.5);
 
         await say(characters.valeria, text.Valeria.T0001, true);
         await say(characters.valeria, text.Valeria.T0002, true);
         await say(characters.valeria, text.Valeria.T0003, true);
 
-        await ƒS.Character.show(characters.mum, characters.mum.pose.happy, ƒS.positions.bottomleft);
-        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, ƒS.positions.bottomright);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.happy, newPositions.bottomleft);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
         await ƒS.update(0.2);
 
         await say(characters.mum, text.Mum.T0004);
@@ -55,6 +60,8 @@ namespace Endabgabe {
 
         await say(characters.valeria, text.Valeria.T0010, true);
         await say(characters.valeria, text.Valeria.T0011, true);
+        ƒS.Sound.fade(sound.indoors, 0, 0.7);
+       
 
         return "ThePicture";
     }

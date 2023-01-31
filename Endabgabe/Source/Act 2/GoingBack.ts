@@ -105,7 +105,7 @@ namespace Endabgabe {
                 //sound open departments
                 await say(characters.valeria, text.Valeria.T0016, true);
                 //sound of steps
-                await ƒS.Character.show(characters.brother, characters.brother.pose.angry, ƒS.positions.bottomleft);
+                await ƒS.Character.show(characters.brother, characters.brother.pose.angry, newPositions.bottomleft);
                 await say(characters.brother, text.Brother.T0020);
                 await say(characters.valeria, text.Valeria.T0017);
                 await say(characters.brother, text.Brother.T0021);

@@ -25,11 +25,11 @@ namespace Endabgabe {
   };
 
   export let sound = {
-    // themes
-    nightclub: "pfad",
+    // sounds SFX
+     indoors: "Audio/SFX/Indoors_environment.wav",
 
-    //SFX
-    click: "Pfad"
+    //themes
+    theme1: "Audio/Music/Theme1.mp3"
   };
 
   export let locations = {
@@ -181,6 +181,93 @@ namespace Endabgabe {
     }
   }
 
+  // Radio
+  // Shows the current display state of the radio
+  let radioOpen: boolean = false;
+
+  // Displays Radio
+  export async function showRadio(): Promise<void> {
+    let parentDiv: HTMLDivElement = document.createElement("div");
+    parentDiv.id = "appendedDiv";
+
+    let radioDiv: HTMLDivElement = document.createElement("div");
+    radioDiv.id = "radioDiv";
+
+    let img: HTMLImageElement = document.createElement("img");
+    img.src = "Images/Radio/radio.png";
+    img.id = "radio";
+
+    let knob: HTMLImageElement = document.createElement("img");
+    knob.src = "Images/Radio/knob.png";
+    knob.id = "knob";
+
+    radioDiv.appendChild(img);
+    radioDiv.appendChild(knob);
+    parentDiv.appendChild(radioDiv);
+    radioOpen = true;
+
+    document.getElementById("append").appendChild(parentDiv);
+  }
+
+  // Hides Radio
+  export function hideRadio(): void {
+    radioOpen = false;
+    document.getElementById("append").removeChild(document.getElementById("appendedDiv"));
+  }
+
+  // Adds or removes Event Listener for Radio Events
+  export function toggleRadioEvent(): void {
+    document.addEventListener("wheel", scrollEvent);
+  }
+
+  // Event Listener that calls the function that changes stations
+  function scrollEvent(_event: Event): void {
+    changeRadioStation();
+  }
+
+  // Tracks current station and whether the event is done 
+  let currentStation = 1;
+  export let radioEventDone = false;
+
+  // Changes the station and displays the text
+  async function changeRadioStation(): Promise<void> {
+    // Removes event listener to avoid continuous scrolling
+    document.removeEventListener("wheel", scrollEvent);
+
+    // Rotate knob 
+    let knob = document.getElementById("knob");
+    knob.style.transform = "rotate(" + currentStation * 22.5 +  "deg)";
+
+    currentStation++;
+    
+    // --- Stations --- 
+    // 1 - First station
+    // 2 - nothing
+    // 3 - Second station
+    if (currentStation == 2) {
+      await ƒS.Speech.tell(" ", "*unclear radio noises*");
+      // Add the event listener again to allow scrolling
+      document.addEventListener("wheel", scrollEvent);
+    }
+    if (currentStation == 3) {
+      if (dataForSave.foundSecretRoom) {
+        await ƒS.Speech.tell("News", "A high school senior as been missing for a couple of months says a local high school.");
+        await ƒS.Speech.tell(" ", "The radio turns off.");  
+      }
+      else {
+        await ƒS.Speech.tell("Documentation", "The secret rich of Marple Street.");
+        await ƒS.Speech.tell("Documentation", "Apparently the rich of the rich keep their private lives on small Marple street.");
+        await ƒS.Speech.tell("Documentation", "Having their own society in this country, they all meet again in the same neighborhood.");
+        await ƒS.Speech.tell("Documentation", "More after the commercial break!");
+        await ƒS.Speech.tell(" ", "The radio turns off.");
+        
+      }
+      // Set event done to true to escape while loop in OddThings.ts
+      // Not adding the event listener again because the event is over
+      radioEventDone = true;
+    }
+  }
+
   export function showCredits(): void {
     ƒS.Text.print("Credits! :D");
   }
@@ -211,6 +298,14 @@ namespace Endabgabe {
           inventoryIsOpen = false;
         }
         break;
+      case ƒ.KEYBOARD_CODE.F:
+        if (!radioOpen) {
+          showRadio();
+        }
+        else {
+          hideRadio();
+        }
+        break;
     }
   }
 
@@ -239,7 +334,6 @@ namespace Endabgabe {
     let scenes: ƒS.Scenes = [
      
       { scene: OddThings, name: "OddThings", id: "OddThings" },
-      
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },

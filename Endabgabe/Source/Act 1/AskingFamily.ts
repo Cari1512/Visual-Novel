@@ -41,12 +41,12 @@ namespace Endabgabe {
         await ƒS.Location.show(locations.diningroom);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
-        await ƒS.Character.show(characters.mum, characters.mum.pose.happy, ƒS.positions.bottomleft);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.happy, newPositions.bottomleft);
         await ƒS.update(0.2);
         await say(characters.valeria, text.Valeria.T0001);
         await say(characters.mum, text.Mum.T0001);
         await say(characters.valeria, text.Valeria.T0002);
-        await ƒS.Character.show(characters.dad, characters.dad.pose.talking, ƒS.positions.bottomright);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.talking, newPositions.bottomright);
         await ƒS.update(0.2);
         await say(characters.dad, text.Dad.T0001);
         await say(characters.valeria, text.Valeria.T0003);

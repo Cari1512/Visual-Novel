@@ -50,7 +50,7 @@ namespace Endabgabe {
 
         await say(characters.valeria, text.Valeria.T0002, true);
         await say(characters.valeria, text.Valeria.T0003, true);
-        await ƒS.Character.show(characters.brother, characters.brother.pose.angry, ƒS.positions.bottomleft);
+        await ƒS.Character.show(characters.brother, characters.brother.pose.angry, newPositions.bottomleft);
         await ƒS.update(0.2);
         await say(characters.brother, text.Brother.T0011);
 

@@ -31,13 +31,13 @@ namespace Endabgabe {
         await ƒS.Location.show(locations.diningroom);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
-        await ƒS.Character.show(characters.mum, characters.mum.pose.neutral, ƒS.positions.bottomleft);
-        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, ƒS.positions.bottomright);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.neutral, newPositions.bottomleft);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
         await ƒS.update(0.2);
         await say(characters.valeria, text.Valeria.T0001);
         await say(characters.mum, text.Mum.T0007);
         await say(characters.valeria, text.Valeria.T0002);
-        await ƒS.Character.show(characters.mum, characters.mum.pose.confused, ƒS.positions.bottomleft);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.confused, newPositions.bottomleft);
         await ƒS.update(0.2);
         await say(characters.mum, text.Mum.T0008);
         await ƒS.Location.show(locations.secretroomLight);

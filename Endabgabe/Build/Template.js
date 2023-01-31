@@ -23,10 +23,10 @@ var Endabgabe;
         }
     };
     Endabgabe.sound = {
-        // themes
-        nightclub: "pfad",
-        //SFX
-        click: "Pfad"
+        // sounds SFX
+        indoors: "Audio/SFX/Indoors_environment.wav",
+        //themes
+        theme1: "Audio/Music/Theme1.mp3"
     };
     Endabgabe.locations = {
         diningroom: {
@@ -171,6 +171,80 @@ var Endabgabe;
         }
     }
     Endabgabe.btnFunctionalities = btnFunctionalities;
+    // Radio
+    // Shows the current display state of the radio
+    let radioOpen = false;
+    // Displays Radio
+    async function showRadio() {
+        let parentDiv = document.createElement("div");
+        parentDiv.id = "appendedDiv";
+        let radioDiv = document.createElement("div");
+        radioDiv.id = "radioDiv";
+        let img = document.createElement("img");
+        img.src = "Images/Radio/radio.png";
+        img.id = "radio";
+        let knob = document.createElement("img");
+        knob.src = "Images/Radio/knob.png";
+        knob.id = "knob";
+        radioDiv.appendChild(img);
+        radioDiv.appendChild(knob);
+        parentDiv.appendChild(radioDiv);
+        radioOpen = true;
+        document.getElementById("append").appendChild(parentDiv);
+    }
+    Endabgabe.showRadio = showRadio;
+    // Hides Radio
+    function hideRadio() {
+        radioOpen = false;
+        document.getElementById("append").removeChild(document.getElementById("appendedDiv"));
+    }
+    Endabgabe.hideRadio = hideRadio;
+    // Adds or removes Event Listener for Radio Events
+    function toggleRadioEvent() {
+        document.addEventListener("wheel", scrollEvent);
+    }
+    Endabgabe.toggleRadioEvent = toggleRadioEvent;
+    // Event Listener that calls the function that changes stations
+    function scrollEvent(_event) {
+        changeRadioStation();
+    }
+    // Tracks current station and whether the event is done 
+    let currentStation = 1;
+    Endabgabe.radioEventDone = false;
+    // Changes the station and displays the text
+    async function changeRadioStation() {
+        // Removes event listener to avoid continuous scrolling
+        document.removeEventListener("wheel", scrollEvent);
+        // Rotate knob 
+        let knob = document.getElementById("knob");
+        knob.style.transform = "rotate(" + currentStation * 22.5 + "deg)";
+        currentStation++;
+        // --- Stations --- 
+        // 1 - First station
+        // 2 - nothing
+        // 3 - Second station
+        if (currentStation == 2) {
+            await Endabgabe.ƒS.Speech.tell(" ", "*unclear radio noises*");
+            // Add the event listener again to allow scrolling
+            document.addEventListener("wheel", scrollEvent);
+        }
+        if (currentStation == 3) {
+            if (Endabgabe.dataForSave.foundSecretRoom) {
+                await Endabgabe.ƒS.Speech.tell("News", "A high school senior as been missing for a couple of months says a local high school.");
+                await Endabgabe.ƒS.Speech.tell(" ", "The radio turns off.");
+            }
+            else {
+                await Endabgabe.ƒS.Speech.tell("Documentation", "The secret rich of Marple Street.");
+                await Endabgabe.ƒS.Speech.tell("Documentation", "Apparently the rich of the rich keep their private lives on small Marple street.");
+                await Endabgabe.ƒS.Speech.tell("Documentation", "Having their own society in this country, they all meet again in the same neighborhood.");
+                await Endabgabe.ƒS.Speech.tell("Documentation", "More after the commercial break!");
+                await Endabgabe.ƒS.Speech.tell(" ", "The radio turns off.");
+            }
+            // Set event done to true to escape while loop in OddThings.ts
+            // Not adding the event listener again because the event is over
+            Endabgabe.radioEventDone = true;
+        }
+    }
     function showCredits() {
         Endabgabe.ƒS.Text.print("Credits! :D");
     }
@@ -197,6 +271,14 @@ var Endabgabe;
                 else {
                     Endabgabe.ƒS.Inventory.close();
                     inventoryIsOpen = false;
+                }
+                break;
+            case Endabgabe.ƒ.KEYBOARD_CODE.F:
+                if (!radioOpen) {
+                    showRadio();
+                }
+                else {
+                    hideRadio();
                 }
                 break;
         }
@@ -267,17 +349,20 @@ var Endabgabe;
             }
         };
         Endabgabe.ƒS.Speech.hide();
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.theme1, 0.4, true);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.act1);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
         await Endabgabe.ƒS.update(5);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        Endabgabe.ƒS.Sound.fade(Endabgabe.sound.theme1, 0, 3);
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.indoors, 0.7, true);
         await Endabgabe.ƒS.update(0.5);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.ƒS.positions.bottomleft);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.newPositions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.newPositions.bottomright);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0004);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
@@ -289,6 +374,7 @@ var Endabgabe;
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0010, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0011, true);
+        Endabgabe.ƒS.Sound.fade(Endabgabe.sound.indoors, 0, 0.7);
         return "ThePicture";
     }
     Endabgabe.ANormalDay = ANormalDay;
@@ -329,12 +415,12 @@ var Endabgabe;
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.newPositions.bottomleft);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0001);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.talking, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.talking, Endabgabe.newPositions.bottomright);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0001);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003);
@@ -408,7 +494,7 @@ var Endabgabe;
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
         await Endabgabe.ƒS.update(0.5);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.newPositions.bottomleft);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0011);
@@ -420,30 +506,30 @@ var Endabgabe;
         Endabgabe.ƒS.Speech.hide();
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.flashback);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.one, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.two, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.three, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.four, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.five, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.six, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.seven, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.knife, Endabgabe.characters.knife.pose.eight, Endabgabe.ƒS.positions.center);
-        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.update(0.1);
         await Endabgabe.ƒS.Character.hide(Endabgabe.characters.knife);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
@@ -568,8 +654,8 @@ var Endabgabe;
             await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0018, true);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0019, true);
-            await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.ƒS.positions.bottomleft);
-            await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
+            await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.newPositions.bottomleft);
+            await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.newPositions.bottomright);
             await Endabgabe.ƒS.update(0.2);
             await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0001);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020);
@@ -595,7 +681,7 @@ var Endabgabe;
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.houseDay);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.neighbor, Endabgabe.characters.neighbor.pose.happy, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.neighbor, Endabgabe.characters.neighbor.pose.happy, Endabgabe.newPositions.bottomleft);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0001);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0002);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0003);
@@ -616,7 +702,21 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0032, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0033, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0034, true);
-        // Radio Interaction: Alex....
+        Endabgabe.showRadio();
+        if (Endabgabe.dataForSave.foundSecretRoom) {
+            await Endabgabe.ƒS.Speech.tell('News', '... a few weeks ago, a whole family was murdered in Maple Street.');
+            await Endabgabe.ƒS.Speech.tell('News', 'The police did not give us an official statement yet, but one family member is still missing!');
+        }
+        else {
+            await Endabgabe.ƒS.Speech.tell('News', 'More and more violent robberies and murders are happening in this country!');
+            await Endabgabe.ƒS.Speech.tell('News', 'People are asked to make sure to lock all doors and windows at any time!');
+        }
+        Endabgabe.toggleRadioEvent();
+        // Continuously checks if the event is done - if not, display the prompt to change stations
+        while (!Endabgabe.radioEventDone) {
+            await Endabgabe.ƒS.Speech.tell(' ', 'On the radio is a small label - Scroll to change radio stations...');
+        }
+        Endabgabe.hideRadio();
         return "Suspicion";
     }
     Endabgabe.OddThings = OddThings;
@@ -655,8 +755,8 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
         // sound of car
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.ƒS.positions.bottomleft);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.newPositions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.newPositions.bottomright);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.happy, Endabgabe.ƒS.positions.bottomcenter);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0007);
@@ -708,7 +808,7 @@ var Endabgabe;
         await Endabgabe.ƒS.update(0.5);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.angry, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.angry, Endabgabe.newPositions.bottomleft);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0011);
         //Entscheidung
@@ -816,13 +916,13 @@ var Endabgabe;
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
         await Endabgabe.ƒS.update(0.5);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.ƒS.positions.bottomleft);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.ƒS.positions.bottomright);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.neutral, Endabgabe.newPositions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.newPositions.bottomright);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0007);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.confused, Endabgabe.ƒS.positions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.confused, Endabgabe.newPositions.bottomleft);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0008);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroomLight);
@@ -940,7 +1040,7 @@ var Endabgabe;
                 //sound open departments
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0016, true);
                 //sound of steps
-                await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.angry, Endabgabe.ƒS.positions.bottomleft);
+                await Endabgabe.ƒS.Character.show(Endabgabe.characters.brother, Endabgabe.characters.brother.pose.angry, Endabgabe.newPositions.bottomleft);
                 await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0020);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0017);
                 await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0021);

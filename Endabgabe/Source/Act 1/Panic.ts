@@ -39,8 +39,8 @@ namespace Endabgabe {
         await say(characters.valeria, text.Valeria.T0004, true);
         // sound of car
         await say(characters.valeria, text.Valeria.T0005, true);
-        await ƒS.Character.show(characters.mum, characters.mum.pose.neutral, ƒS.positions.bottomleft);
-        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, ƒS.positions.bottomright);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.neutral, newPositions.bottomleft);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
         await ƒS.Character.show(characters.brother, characters.brother.pose.happy, ƒS.positions.bottomcenter);
         await ƒS.update(0.2);
         await say(characters.dad, text.Dad.T0007);

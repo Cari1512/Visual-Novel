@@ -19,8 +19,8 @@ declare namespace Endabgabe {
         };
     };
     let sound: {
-        nightclub: string;
-        click: string;
+        indoors: string;
+        theme1: string;
     };
     let locations: {
         diningroom: {
@@ -148,6 +148,10 @@ declare namespace Endabgabe {
         credits: string;
     };
     function btnFunctionalities(_option: string): Promise<void>;
+    function showRadio(): Promise<void>;
+    function hideRadio(): void;
+    function toggleRadioEvent(): void;
+    let radioEventDone: boolean;
     function showCredits(): void;
     function say(_char: Object, _text: string, _italic?: boolean): Promise<void>;
     let items: {

@@ -126,8 +126,8 @@ namespace Endabgabe {
             await say(characters.valeria, text.Valeria.T0018, true);
             await say(characters.valeria, text.Valeria.T0019, true);
 
-            await ƒS.Character.show(characters.mum, characters.mum.pose.happy, ƒS.positions.bottomleft);
-            await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, ƒS.positions.bottomright);
+            await ƒS.Character.show(characters.mum, characters.mum.pose.happy, newPositions.bottomleft);
+            await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
             await ƒS.update(0.2);
             await say(characters.dad, text.Dad.T0001);
             await say(characters.valeria, text.Valeria.T0020);
@@ -157,7 +157,7 @@ namespace Endabgabe {
         await ƒS.update(0.2);
         await ƒS.Location.show(locations.houseDay);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
-        await ƒS.Character.show(characters.neighbor, characters.neighbor.pose.happy, ƒS.positions.bottomleft);
+        await ƒS.Character.show(characters.neighbor, characters.neighbor.pose.happy, newPositions.bottomleft);
         await say(characters.neighbor, text.Neighbor.T0001);
         await say(characters.neighbor, text.Neighbor.T0002);
         await say(characters.neighbor, text.Neighbor.T0003);
@@ -165,7 +165,7 @@ namespace Endabgabe {
         await say(characters.neighbor, text.Neighbor.T0005);
 
         await ƒS.Character.hide(characters.neighbor);
-            await ƒS.update(0.2);
+        await ƒS.update(0.2);
 
         await say(characters.valeria, text.Valeria.T0026);
         await say(characters.valeria, text.Valeria.T0027, true);
@@ -183,8 +183,23 @@ namespace Endabgabe {
         await say(characters.valeria, text.Valeria.T0033, true);
         await say(characters.valeria, text.Valeria.T0034, true);
 
-        // Radio Interaction: Alex....
+        showRadio();
+        if (dataForSave.foundSecretRoom) {
+            await ƒS.Speech.tell('News', '... a few weeks ago, a whole family was murdered in Maple Street.');
+            await ƒS.Speech.tell('News', 'The police did not give us an official statement yet, but one family member is still missing!');
+        }
+        else {
+            await ƒS.Speech.tell('News', 'More and more violent robberies and murders are happening in this country!');
+            await ƒS.Speech.tell('News', 'People are asked to make sure to lock all doors and windows at any time!');
+        }
+        
+        toggleRadioEvent();
 
+        // Continuously checks if the event is done - if not, display the prompt to change stations
+        while (!radioEventDone) {
+            await ƒS.Speech.tell(' ', 'On the radio is a small label - Scroll to change radio stations...');
+        }
+        hideRadio();
         return "Suspicion";
 
     }
