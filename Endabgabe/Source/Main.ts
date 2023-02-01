@@ -75,7 +75,7 @@ namespace Endabgabe {
     },
     houseNight: {
       name: "houseDay",
-      background: "Images/Backgrounds/houseNight.jpg",
+      background: "Images/Backgrounds/houseNight.png",
     },
     flashback: {
       name: "flashback",
@@ -84,6 +84,10 @@ namespace Endabgabe {
     car: {
       name: "car",
       background: "Images/Backgrounds/car.jpg",
+    },
+    wall: {
+      name: "wall",
+      background: "Images/Backgrounds/greyWall.jpg",
     }
   };
 
@@ -112,8 +116,8 @@ namespace Endabgabe {
       name: "Valeria",
       origin: ƒS.ORIGIN.BOTTOMCENTER,
       pose: {
-        angry: "Pfad",
-        happy: "Images/Character/Adelinde_smile.png",
+        headDown: "Images/Character/Valeria2.png",
+        headUp: "Images/Character/Valeria3.png",
       }
     },
     neighbor: {
@@ -170,10 +174,10 @@ namespace Endabgabe {
         ƒS.Inventory.open();
         break;
       case ingameButtons.save:
-        ƒS.Progress.save();
+       await ƒS.Progress.save();
         break;
       case ingameButtons.load:
-        ƒS.Progress.load();
+        await ƒS.Progress.load();
         break;
       case ingameButtons.credits:
         showCredits();
@@ -333,7 +337,7 @@ namespace Endabgabe {
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
      
-      { scene: OddThings, name: "OddThings", id: "OddThings" },
+      { scene: Valeria, name: "Valeria", id: "Valeria" },
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },

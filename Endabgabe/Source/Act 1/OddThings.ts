@@ -158,6 +158,7 @@ namespace Endabgabe {
         await ƒS.Location.show(locations.houseDay);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
         await ƒS.Character.show(characters.neighbor, characters.neighbor.pose.happy, newPositions.bottomleft);
+        await ƒS.update(0.2);
         await say(characters.neighbor, text.Neighbor.T0001);
         await say(characters.neighbor, text.Neighbor.T0002);
         await say(characters.neighbor, text.Neighbor.T0003);

@@ -67,6 +67,8 @@ namespace Endabgabe {
         switch (sleeping) {
             case sleepingAnswer.pretending:
                 await say(characters.brother, text.Brother.T0012);
+                await ƒS.Character.hide(characters.brother);
+                await ƒS.update(0.2);
                 return "Knife";
 
             case sleepingAnswer.wakingUp:
@@ -74,6 +76,8 @@ namespace Endabgabe {
                 await say(characters.brother, text.Brother.T0013);
                 await say(characters.valeria, text.Valeria.T0005);
                 await say(characters.brother, text.Brother.T0014);
+                await ƒS.Character.hide(characters.brother);
+                await ƒS.update(0.2);
                 return "Knife";
     }
 

@@ -75,6 +75,10 @@ declare namespace Endabgabe {
             name: string;
             background: string;
         };
+        wall: {
+            name: string;
+            background: string;
+        };
     };
     let characters: {
         mum: {
@@ -100,8 +104,8 @@ declare namespace Endabgabe {
             name: string;
             origin: ƒ.ORIGIN2D;
             pose: {
-                angry: string;
-                happy: string;
+                headDown: string;
+                headUp: string;
             };
         };
         neighbor: {

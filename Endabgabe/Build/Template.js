@@ -71,7 +71,7 @@ var Endabgabe;
         },
         houseNight: {
             name: "houseDay",
-            background: "Images/Backgrounds/houseNight.jpg",
+            background: "Images/Backgrounds/houseNight.png",
         },
         flashback: {
             name: "flashback",
@@ -80,6 +80,10 @@ var Endabgabe;
         car: {
             name: "car",
             background: "Images/Backgrounds/car.jpg",
+        },
+        wall: {
+            name: "wall",
+            background: "Images/Backgrounds/greyWall.jpg",
         }
     };
     Endabgabe.characters = {
@@ -106,8 +110,8 @@ var Endabgabe;
             name: "Valeria",
             origin: Endabgabe.ƒS.ORIGIN.BOTTOMCENTER,
             pose: {
-                angry: "Pfad",
-                happy: "Images/Character/Adelinde_smile.png",
+                headDown: "Images/Character/Valeria2.png",
+                headUp: "Images/Character/Valeria3.png",
             }
         },
         neighbor: {
@@ -160,10 +164,10 @@ var Endabgabe;
                 Endabgabe.ƒS.Inventory.open();
                 break;
             case Endabgabe.ingameButtons.save:
-                Endabgabe.ƒS.Progress.save();
+                await Endabgabe.ƒS.Progress.save();
                 break;
             case Endabgabe.ingameButtons.load:
-                Endabgabe.ƒS.Progress.load();
+                await Endabgabe.ƒS.Progress.load();
                 break;
             case Endabgabe.ingameButtons.credits:
                 showCredits();
@@ -303,7 +307,7 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
-            { scene: Endabgabe.OddThings, name: "OddThings", id: "OddThings" },
+            { scene: Endabgabe.Valeria, name: "Valeria", id: "Valeria" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -682,6 +686,7 @@ var Endabgabe;
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.houseDay);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.neighbor, Endabgabe.characters.neighbor.pose.happy, Endabgabe.newPositions.bottomleft);
+        await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0001);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0002);
         await Endabgabe.say(Endabgabe.characters.neighbor, text.Neighbor.T0003);
@@ -820,12 +825,16 @@ var Endabgabe;
         switch (sleeping) {
             case sleepingAnswer.pretending:
                 await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0012);
+                await Endabgabe.ƒS.Character.hide(Endabgabe.characters.brother);
+                await Endabgabe.ƒS.update(0.2);
                 return "Knife";
             case sleepingAnswer.wakingUp:
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004);
                 await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0013);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
                 await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0014);
+                await Endabgabe.ƒS.Character.hide(Endabgabe.characters.brother);
+                await Endabgabe.ƒS.update(0.2);
                 return "Knife";
         }
     }
@@ -881,6 +890,7 @@ var Endabgabe;
             case hangPictureAnswer.iSayNo:
                 Endabgabe.dataForSave.foundSecretRoom = false;
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
+                await Endabgabe.ƒS.Text.print('<img style="width: 500px" src="./Images/Items/bankDocument.png">');
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
                 return "AskingFamily";
@@ -1102,7 +1112,7 @@ var Endabgabe;
         gameMenu.open();
         let text = {
             Valeria: {
-                T0001: "laugthing",
+                T0001: "no reaction, just staring",
             },
             Brother: {
                 T0001: "Valeria",
@@ -1115,6 +1125,30 @@ var Endabgabe;
                 T0008: "Why did you kill them?",
             }
         };
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.wall);
+        await Endabgabe.ƒS.update(Endabgabe.transitions.slideFast.duration, Endabgabe.transitions.slideFast.alpha, Endabgabe.transitions.slideFast.edge);
+        await Endabgabe.ƒS.update(0.5);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.valeria, Endabgabe.characters.valeria.pose.headDown, Endabgabe.ƒS.positions.bottomcenter);
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0001);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.valeria);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.valeria, Endabgabe.characters.valeria.pose.headUp, Endabgabe.ƒS.positions.bottomcenter);
+        await Endabgabe.ƒS.update(0.1);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0002);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0003);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0004);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0005);
+        await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0006);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0007);
+        await Endabgabe.say(Endabgabe.characters.brother, text.Brother.T0008);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.valeria);
+        Endabgabe.ƒS.Speech.hide();
+        await Endabgabe.ƒS.update(0.2);
+        await Endabgabe.ƒS.Location.show(Endabgabe.locations.flashback);
+        await Endabgabe.ƒS.update(0.2);
+        return "empty";
     }
     Endabgabe.Valeria = Valeria;
 })(Endabgabe || (Endabgabe = {}));

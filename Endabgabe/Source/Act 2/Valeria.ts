@@ -7,7 +7,7 @@ namespace Endabgabe {
 
         let text = {
             Valeria: {
-                T0001: "laugthing",
+                T0001: "no reaction, just staring",
             },
             Brother: {
                 T0001: "Valeria",
@@ -20,7 +20,35 @@ namespace Endabgabe {
                 T0008: "Why did you kill them?",
             }
         }
+        ƒS.Speech.hide();
+        await ƒS.Location.show(locations.wall);
+        await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
+        await ƒS.update(0.5);
+        await ƒS.Character.show(characters.valeria, characters.valeria.pose.headDown,ƒS.positions.bottomcenter);
+        await ƒS.update(0.2);
+        await say(characters.brother, text.Brother.T0001);
+        await ƒS.Character.hide(characters.valeria);
+        await ƒS.Character.show(characters.valeria, characters.valeria.pose.headUp,ƒS.positions.bottomcenter);
+        await ƒS.update(0.1);
+        await say(characters.brother, text.Brother.T0002);
+        await say(characters.brother, text.Brother.T0003);
+        await say(characters.brother, text.Brother.T0004);
+        await say(characters.brother, text.Brother.T0005);
+        await say(characters.valeria, text.Valeria.T0001, true);
+        await say(characters.brother, text.Brother.T0006);
+        await say(characters.brother, text.Brother.T0007);
+        await say(characters.brother, text.Brother.T0008);
+        await ƒS.Character.hide(characters.valeria);
+        ƒS.Speech.hide();
+        await ƒS.update(0.2);
+        await ƒS.Location.show(locations.flashback);
+        await ƒS.update(0.2);
 
-
+        return "empty";
+        
     }
+   
 }
+        
+
+

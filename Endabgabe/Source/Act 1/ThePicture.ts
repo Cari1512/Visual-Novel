@@ -60,6 +60,7 @@ namespace Endabgabe {
             case hangPictureAnswer.iSayNo:
                 dataForSave.foundSecretRoom = false;
                 await say(characters.valeria, text.Valeria.T0020, true);
+                await ƒS.Text.print('<img style="width: 500px" src="./Images/Items/bankDocument.png">');
                 await say(characters.valeria, text.Valeria.T0008, true);
                 await say(characters.valeria, text.Valeria.T0009, true);
                 return "AskingFamily";
