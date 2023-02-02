@@ -44,7 +44,7 @@ namespace Endabgabe {
         await say(characters.valeria, text.Valeria.T0002, true);
         await say(characters.valeria, text.Valeria.T0003, true);
 
-        await ƒS.Character.show(characters.mum, characters.mum.pose.happy, newPositions.bottomleft);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.talking, newPositions.bottomleft);
         await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
         await ƒS.update(0.2);
 

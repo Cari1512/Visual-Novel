@@ -1,6 +1,12 @@
 "use strict";
 var Endabgabe;
 (function (Endabgabe) {
+    async function Empty() {
+    }
+    Endabgabe.Empty = Empty;
+})(Endabgabe || (Endabgabe = {}));
+var Endabgabe;
+(function (Endabgabe) {
     Endabgabe.ƒ = FudgeCore;
     Endabgabe.ƒS = FudgeStory;
     console.log("FudgeStory [Storyname] starting");
@@ -25,6 +31,11 @@ var Endabgabe;
     Endabgabe.sound = {
         // sounds SFX
         indoors: "Audio/SFX/Indoors_environment.wav",
+        night: "Audio/SFX/insect.wav",
+        picture_fall: "Audio/SFX/picture_fall.mp3",
+        nail_fall: "Audio/SFX/nail_fall.mp3",
+        snoring: "Audio/SFX/snoring.wav",
+        page: "Audio/SFX/page.mp3",
         //themes
         theme1: "Audio/Music/Theme1.mp3"
     };
@@ -250,7 +261,7 @@ var Endabgabe;
         }
     }
     function showCredits() {
-        Endabgabe.ƒS.Text.print("Credits! :D");
+        Endabgabe.ƒS.Text.print("Visual Novel by Carianne Sauermann, Music by Simon Hähnle");
     }
     Endabgabe.showCredits = showCredits;
     async function say(_char, _text, _italic = false) {
@@ -300,6 +311,12 @@ var Endabgabe;
             image: "./Images/Items/flashlight.png",
             static: false,
         },
+        bank_statement: {
+            name: "Bank Statement",
+            description: "found behind the picture",
+            image: "./Images/Items/bankDocument.png",
+            static: false,
+        }
     };
     Endabgabe.dataForSave = {
         foundSecretRoom: false
@@ -307,7 +324,7 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
-            { scene: Endabgabe.Valeria, name: "Valeria", id: "Valeria" },
+            { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -320,6 +337,7 @@ var Endabgabe;
             { scene: Endabgabe.Confronting, name: "Confronting", id: "Confronting" },
             { scene: Endabgabe.TryingKey, name: "TryingKey", id: "TryingKey" },
             { scene: Endabgabe.Valeria, name: "Valeria", id: "Valeria" },
+            { scene: Endabgabe.Empty, name: "Empty", id: "Empty" },
         ];
         let uiElement = document.querySelector("[type=interface]");
         Endabgabe.dataForSave = Endabgabe.ƒS.Progress.setData(Endabgabe.dataForSave, uiElement);
@@ -365,7 +383,7 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
-        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.newPositions.bottomleft);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.talking, Endabgabe.newPositions.bottomleft);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.newPositions.bottomright);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0004);
@@ -860,12 +878,18 @@ var Endabgabe;
             }
         };
         Endabgabe.ƒS.Speech.hide();
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.night, 0.2, true);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.bedroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
+        await Endabgabe.ƒS.update(2);
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.snoring, 0.1, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.picture_fall, 0.1, false);
         await Endabgabe.ƒS.update(3);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002, true);
+        Endabgabe.ƒS.Sound.fade(Endabgabe.sound.night, 0.1, 3);
+        Endabgabe.ƒS.Sound.fade(Endabgabe.sound.snoring, 0.05, 3);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.hallway);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003, true);
@@ -877,10 +901,13 @@ var Endabgabe;
         switch (foundSecretRoom) {
             case hangPictureAnswer.iSayYes:
                 Endabgabe.dataForSave.foundSecretRoom = true;
+                Endabgabe.ƒS.Sound.play(Endabgabe.sound.nail_fall, 0.1, false);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0004, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
                 await Endabgabe.ƒS.update(3);
+                Endabgabe.ƒS.Sound.fade(Endabgabe.sound.night, 0, 3);
+                Endabgabe.ƒS.Sound.fade(Endabgabe.sound.snoring, 0, 3);
                 await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroom);
                 await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);

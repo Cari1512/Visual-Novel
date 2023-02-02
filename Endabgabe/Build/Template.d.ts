@@ -1,4 +1,7 @@
 declare namespace Endabgabe {
+    function Empty(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
     export import ƒ = FudgeCore;
     export import ƒS = FudgeStory;
     let transitions: {
@@ -20,6 +23,11 @@ declare namespace Endabgabe {
     };
     let sound: {
         indoors: string;
+        night: string;
+        picture_fall: string;
+        nail_fall: string;
+        snoring: string;
+        page: string;
         theme1: string;
     };
     let locations: {
@@ -166,6 +174,12 @@ declare namespace Endabgabe {
             static: boolean;
         };
         key: {
+            name: string;
+            description: string;
+            image: string;
+            static: boolean;
+        };
+        bank_statement: {
             name: string;
             description: string;
             image: string;

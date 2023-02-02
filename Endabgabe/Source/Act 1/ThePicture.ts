@@ -25,13 +25,20 @@ namespace Endabgabe {
         }
 
         ƒS.Speech.hide();
+        ƒS.Sound.play(sound.night, 0.2, true);
+
         await ƒS.Location.show(locations.bedroom);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
+        await ƒS.update(2);
+        ƒS.Sound.play(sound.snoring, 0.1, true);
         await say(characters.valeria, text.Valeria.T0001, true);
         await say(characters.valeria, text.Valeria.T0020, true);
+        ƒS.Sound.play(sound.picture_fall, 0.1, false);
         await ƒS.update(3);
         await say(characters.valeria, text.Valeria.T0002, true);
+        ƒS.Sound.fade(sound.night, 0.1, 3);
+        ƒS.Sound.fade(sound.snoring, 0.05, 3);
         await ƒS.Location.show(locations.hallway);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
         await say(characters.valeria, text.Valeria.T0003, true);
@@ -46,10 +53,13 @@ namespace Endabgabe {
         switch (foundSecretRoom) {
             case hangPictureAnswer.iSayYes:
                 dataForSave.foundSecretRoom = true;
+                ƒS.Sound.play(sound.nail_fall, 0.1, false);
                 await say(characters.valeria, text.Valeria.T0020, true);
                 await say(characters.valeria, text.Valeria.T0004, true);
                 await say(characters.valeria, text.Valeria.T0020, true);
                 await ƒS.update(3);
+                ƒS.Sound.fade(sound.night, 0, 3);
+                ƒS.Sound.fade(sound.snoring, 0, 3);
                 await ƒS.Location.show(locations.secretroom);
                 await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
                 await say(characters.valeria, text.Valeria.T0005, true);

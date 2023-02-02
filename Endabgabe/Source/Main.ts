@@ -27,6 +27,12 @@ namespace Endabgabe {
   export let sound = {
     // sounds SFX
      indoors: "Audio/SFX/Indoors_environment.wav",
+     night: "Audio/SFX/insect.wav",
+     picture_fall: "Audio/SFX/picture_fall.mp3",
+     nail_fall: "Audio/SFX/nail_fall.mp3",
+     snoring: "Audio/SFX/snoring.wav",
+     page: "Audio/SFX/page.mp3",
+
 
     //themes
     theme1: "Audio/Music/Theme1.mp3"
@@ -273,7 +279,7 @@ namespace Endabgabe {
   }
 
   export function showCredits(): void {
-    ƒS.Text.print("Credits! :D");
+    ƒS.Text.print("Visual Novel by Carianne Sauermann, Music by Simon Hähnle");
   }
 
   export async function say(_char: Object, _text: string, _italic: boolean = false): Promise<void> {
@@ -327,6 +333,12 @@ namespace Endabgabe {
       image: "./Images/Items/flashlight.png",
       static: false,
     },
+    bank_statement: {
+      name: "Bank Statement",
+      description: "found behind the picture",
+      image: "./Images/Items/bankDocument.png",
+      static: false,
+    }
   }
 
   export let dataForSave = {
@@ -337,7 +349,7 @@ namespace Endabgabe {
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
      
-      { scene: Valeria, name: "Valeria", id: "Valeria" },
+      { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -351,6 +363,7 @@ namespace Endabgabe {
       { scene: Confronting, name: "Confronting", id: "Confronting" },
       { scene: TryingKey, name: "TryingKey", id: "TryingKey" },
       { scene: Valeria, name: "Valeria", id: "Valeria" },
+      { scene: Empty, name: "Empty", id: "Empty" },
       
 
     ];
