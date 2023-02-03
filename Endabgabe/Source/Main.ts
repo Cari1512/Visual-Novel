@@ -27,15 +27,19 @@ namespace Endabgabe {
   export let sound = {
     // sounds SFX
      indoors: "Audio/SFX/Indoors_environment.wav",
+     outsideDay: "Audio/SFX/outsideDay.wav",
      night: "Audio/SFX/insect.wav",
      picture_fall: "Audio/SFX/picture_fall.mp3",
      nail_fall: "Audio/SFX/nail_fall.mp3",
      snoring: "Audio/SFX/snoring.wav",
      page: "Audio/SFX/page.mp3",
+     radio: "Audio/SFX/radio.wav",
 
 
     //themes
-    theme1: "Audio/Music/Theme1.mp3"
+    theme1: "Audio/Music/Theme1.mp3",
+    theme2: "Audio/Music/theme2.mp3",
+    theme3: "Audio/Music/theme3.mp3"
   };
 
   export let locations = {
@@ -255,11 +259,13 @@ namespace Endabgabe {
     // 2 - nothing
     // 3 - Second station
     if (currentStation == 2) {
+      ƒS.Sound.play(sound.radio, 0.3, false);
       await ƒS.Speech.tell(" ", "*unclear radio noises*");
       // Add the event listener again to allow scrolling
       document.addEventListener("wheel", scrollEvent);
     }
     if (currentStation == 3) {
+      ƒS.Sound.fade(sound.radio, 0, 1);
       if (dataForSave.foundSecretRoom) {
         await ƒS.Speech.tell("News", "A high school senior as been missing for a couple of months says a local high school.");
         await ƒS.Speech.tell(" ", "The radio turns off.");  
@@ -348,8 +354,8 @@ namespace Endabgabe {
   window.addEventListener("load", start);
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
-     
-      { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
+      
+      { scene: Suspicion, name: "Suspicion", id: "Suspicion" },
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },

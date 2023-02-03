@@ -23,12 +23,16 @@ declare namespace Endabgabe {
     };
     let sound: {
         indoors: string;
+        outsideDay: string;
         night: string;
         picture_fall: string;
         nail_fall: string;
         snoring: string;
         page: string;
+        radio: string;
         theme1: string;
+        theme2: string;
+        theme3: string;
     };
     let locations: {
         diningroom: {

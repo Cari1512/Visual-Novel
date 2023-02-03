@@ -31,13 +31,17 @@ var Endabgabe;
     Endabgabe.sound = {
         // sounds SFX
         indoors: "Audio/SFX/Indoors_environment.wav",
+        outsideDay: "Audio/SFX/outsideDay.wav",
         night: "Audio/SFX/insect.wav",
         picture_fall: "Audio/SFX/picture_fall.mp3",
         nail_fall: "Audio/SFX/nail_fall.mp3",
         snoring: "Audio/SFX/snoring.wav",
         page: "Audio/SFX/page.mp3",
+        radio: "Audio/SFX/radio.wav",
         //themes
-        theme1: "Audio/Music/Theme1.mp3"
+        theme1: "Audio/Music/Theme1.mp3",
+        theme2: "Audio/Music/theme2.mp3",
+        theme3: "Audio/Music/theme3.mp3"
     };
     Endabgabe.locations = {
         diningroom: {
@@ -239,11 +243,13 @@ var Endabgabe;
         // 2 - nothing
         // 3 - Second station
         if (currentStation == 2) {
+            Endabgabe.ƒS.Sound.play(Endabgabe.sound.radio, 0.3, false);
             await Endabgabe.ƒS.Speech.tell(" ", "*unclear radio noises*");
             // Add the event listener again to allow scrolling
             document.addEventListener("wheel", scrollEvent);
         }
         if (currentStation == 3) {
+            Endabgabe.ƒS.Sound.fade(Endabgabe.sound.radio, 0, 1);
             if (Endabgabe.dataForSave.foundSecretRoom) {
                 await Endabgabe.ƒS.Speech.tell("News", "A high school senior as been missing for a couple of months says a local high school.");
                 await Endabgabe.ƒS.Speech.tell(" ", "The radio turns off.");
@@ -324,7 +330,7 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
-            { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
+            { scene: Endabgabe.Suspicion, name: "Suspicion", id: "Suspicion" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -435,16 +441,25 @@ var Endabgabe;
         };
         Endabgabe.ƒS.Speech.hide();
         await Endabgabe.ƒS.update(0.2);
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.indoors, 0.7, true);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.diningroom);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.newPositions.bottomleft);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0001);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.mum);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.talking, Endabgabe.newPositions.bottomleft);
+        await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0001);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0002);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.talking, Endabgabe.newPositions.bottomright);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0001);
+        await Endabgabe.ƒS.Character.hide(Endabgabe.characters.dad);
+        await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.newPositions.bottomright);
+        await Endabgabe.ƒS.update(0.2);
+        Endabgabe.ƒS.Sound.fade(Endabgabe.sound.indoors, 0, 3);
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.theme1, 0.1, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0003);
         await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0002);
         let findingQuestionAnswer = {
@@ -460,11 +475,15 @@ var Endabgabe;
                 case findingQuestionAnswer.noReason:
                     await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0003);
                     await Endabgabe.ƒS.update(0.2);
+                    Endabgabe.ƒS.Character.hideAll();
+                    await Endabgabe.ƒS.update(0.2);
                     return "OddThings";
                 case findingQuestionAnswer.iFoundSomething:
                     await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005);
                     await Endabgabe.ƒS.update(0.2);
                     await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0004);
+                    Endabgabe.ƒS.Character.hideAll();
+                    await Endabgabe.ƒS.update(0.2);
                     return "OddThings";
             }
         }
@@ -477,11 +496,15 @@ var Endabgabe;
                     await Endabgabe.say(Endabgabe.characters.mum, text.Mum.T0004);
                     await Endabgabe.ƒS.update(0.2);
                     await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007);
+                    Endabgabe.ƒS.Character.hideAll();
+                    await Endabgabe.ƒS.update(0.2);
                     return "OddThings";
                 case findingQuestionAnswer.iFoundSomething:
                     await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008);
                     await Endabgabe.ƒS.update(0.2);
                     await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0006);
+                    Endabgabe.ƒS.Character.hideAll();
+                    await Endabgabe.ƒS.update(0.2);
                     return "OddThings";
             }
         }
@@ -676,6 +699,8 @@ var Endabgabe;
             await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0018, true);
             await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0019, true);
+            Endabgabe.ƒS.Sound.fade(Endabgabe.sound.theme1, 0, 3);
+            Endabgabe.ƒS.Sound.play(Endabgabe.sound.indoors, 0.5, true);
             await Endabgabe.ƒS.Character.show(Endabgabe.characters.mum, Endabgabe.characters.mum.pose.happy, Endabgabe.newPositions.bottomleft);
             await Endabgabe.ƒS.Character.show(Endabgabe.characters.dad, Endabgabe.characters.dad.pose.neutral, Endabgabe.newPositions.bottomright);
             await Endabgabe.ƒS.update(0.2);
@@ -697,10 +722,12 @@ var Endabgabe;
             await Endabgabe.say(Endabgabe.characters.dad, text.Dad.T0004);
             await Endabgabe.ƒS.Character.hide(Endabgabe.characters.dad);
             await Endabgabe.ƒS.Character.hide(Endabgabe.characters.mum);
+            Endabgabe.ƒS.Sound.fade(Endabgabe.sound.indoors, 0, 3);
             await Endabgabe.ƒS.update(0.2);
         }
         Endabgabe.ƒS.Speech.hide();
         await Endabgabe.ƒS.update(0.2);
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.outsideDay, 0.5, true);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.houseDay);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.ƒS.Character.show(Endabgabe.characters.neighbor, Endabgabe.characters.neighbor.pose.happy, Endabgabe.newPositions.bottomleft);
@@ -718,8 +745,10 @@ var Endabgabe;
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0029, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0030, true);
         Endabgabe.ƒS.Speech.hide();
+        Endabgabe.ƒS.Sound.fade(Endabgabe.sound.outsideDay, 0, 2);
         await Endabgabe.ƒS.update(0.2);
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.livingroom);
+        Endabgabe.ƒS.Sound.play(Endabgabe.sound.theme1, 0.3, true);
         await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0031, true);
         await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0032, true);
@@ -740,6 +769,7 @@ var Endabgabe;
             await Endabgabe.ƒS.Speech.tell(' ', 'On the radio is a small label - Scroll to change radio stations...');
         }
         Endabgabe.hideRadio();
+        Endabgabe.ƒS.Sound.fade(Endabgabe.sound.theme1, 0, 2);
         return "Suspicion";
     }
     Endabgabe.OddThings = OddThings;
@@ -908,18 +938,24 @@ var Endabgabe;
                 await Endabgabe.ƒS.update(3);
                 Endabgabe.ƒS.Sound.fade(Endabgabe.sound.night, 0, 3);
                 Endabgabe.ƒS.Sound.fade(Endabgabe.sound.snoring, 0, 3);
+                Endabgabe.ƒS.Sound.play(Endabgabe.sound.theme3, 0.1, true);
                 await Endabgabe.ƒS.Location.show(Endabgabe.locations.secretroom);
                 await Endabgabe.ƒS.update(Endabgabe.transitions.slide.duration, Endabgabe.transitions.slide.alpha, Endabgabe.transitions.slide.edge);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0005, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0006, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0007, true);
+                Endabgabe.ƒS.Sound.fade(Endabgabe.sound.theme3, 0, 3);
                 return "AskingFamily";
             case hangPictureAnswer.iSayNo:
                 Endabgabe.dataForSave.foundSecretRoom = false;
+                Endabgabe.ƒS.Sound.play(Endabgabe.sound.theme2, 0.1, true);
+                Endabgabe.ƒS.Sound.play(Endabgabe.sound.page, 0.5, false);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0020, true);
                 await Endabgabe.ƒS.Text.print('<img style="width: 500px" src="./Images/Items/bankDocument.png">');
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0008, true);
                 await Endabgabe.say(Endabgabe.characters.valeria, text.Valeria.T0009, true);
+                Endabgabe.ƒS.Sound.fade(Endabgabe.sound.theme2, 0, 3);
+                Endabgabe.ƒS.Inventory.add(Endabgabe.items.bank_statement);
                 return "AskingFamily";
         }
     }

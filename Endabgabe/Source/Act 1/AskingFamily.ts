@@ -38,17 +38,26 @@ namespace Endabgabe {
 
         ƒS.Speech.hide();
         await ƒS.update(0.2);
+        ƒS.Sound.play(sound.indoors, 0.7, true);
         await ƒS.Location.show(locations.diningroom);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
 
         await ƒS.Character.show(characters.mum, characters.mum.pose.happy, newPositions.bottomleft);
         await ƒS.update(0.2);
         await say(characters.valeria, text.Valeria.T0001);
+        await ƒS.Character.hide(characters.mum);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.talking, newPositions.bottomleft);
+        await ƒS.update(0.2);
         await say(characters.mum, text.Mum.T0001);
         await say(characters.valeria, text.Valeria.T0002);
         await ƒS.Character.show(characters.dad, characters.dad.pose.talking, newPositions.bottomright);
         await ƒS.update(0.2);
         await say(characters.dad, text.Dad.T0001);
+        await ƒS.Character.hide(characters.dad);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
+        await ƒS.update(0.2);
+        ƒS.Sound.fade(sound.indoors, 0, 3);
+        ƒS.Sound.play(sound.theme1, 0.1, true);
         await say(characters.valeria, text.Valeria.T0003);
         await say(characters.mum, text.Mum.T0002);
 
@@ -58,7 +67,7 @@ namespace Endabgabe {
             iFoundSomething: "Because I found something yesterday night.....",
         };
 
-        
+
 
 
         if (dataForSave.foundSecretRoom) {
@@ -70,16 +79,20 @@ namespace Endabgabe {
             let findingQuestion = await ƒS.Menu.getInput(findingQuestionAnswer, "decision");
 
 
-           
+
             switch (findingQuestion) {
                 case findingQuestionAnswer.noReason:
                     await say(characters.dad, text.Dad.T0003);
+                    await ƒS.update(0.2);
+                    ƒS.Character.hideAll();
                     await ƒS.update(0.2);
                     return "OddThings";
                 case findingQuestionAnswer.iFoundSomething:
                     await say(characters.valeria, text.Valeria.T0005);
                     await ƒS.update(0.2);
                     await say(characters.dad, text.Dad.T0004);
+                    ƒS.Character.hideAll();
+                    await ƒS.update(0.2);
                     return "OddThings";
             }
         }
@@ -99,15 +112,20 @@ namespace Endabgabe {
                     await say(characters.mum, text.Mum.T0004);
                     await ƒS.update(0.2);
                     await say(characters.valeria, text.Valeria.T0007);
+                    ƒS.Character.hideAll();
+                    await ƒS.update(0.2);
                     return "OddThings";
                 case findingQuestionAnswer.iFoundSomething:
                     await say(characters.valeria, text.Valeria.T0008);
                     await ƒS.update(0.2);
                     await say(characters.dad, text.Dad.T0006);
+
+                    ƒS.Character.hideAll();
+                    await ƒS.update(0.2);
                     return "OddThings";
 
             }
-            
+
         }
 
     }

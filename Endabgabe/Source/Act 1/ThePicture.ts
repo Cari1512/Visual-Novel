@@ -60,19 +60,26 @@ namespace Endabgabe {
                 await ƒS.update(3);
                 ƒS.Sound.fade(sound.night, 0, 3);
                 ƒS.Sound.fade(sound.snoring, 0, 3);
+                ƒS.Sound.play(sound.theme3, 0.1, true);
                 await ƒS.Location.show(locations.secretroom);
                 await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
                 await say(characters.valeria, text.Valeria.T0005, true);
                 await say(characters.valeria, text.Valeria.T0006, true);
                 await say(characters.valeria, text.Valeria.T0007, true);
+                ƒS.Sound.fade(sound.theme3, 0, 3);
                 return "AskingFamily";
 
             case hangPictureAnswer.iSayNo:
                 dataForSave.foundSecretRoom = false;
+                ƒS.Sound.play(sound.theme2, 0.1, true);
+                ƒS.Sound.play(sound.page, 0.5, false);
                 await say(characters.valeria, text.Valeria.T0020, true);
+                
                 await ƒS.Text.print('<img style="width: 500px" src="./Images/Items/bankDocument.png">');
                 await say(characters.valeria, text.Valeria.T0008, true);
                 await say(characters.valeria, text.Valeria.T0009, true);
+                ƒS.Sound.fade(sound.theme2, 0, 3);
+                ƒS.Inventory.add(items.bank_statement);
                 return "AskingFamily";
         }
 

@@ -125,7 +125,8 @@ namespace Endabgabe {
             await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
             await say(characters.valeria, text.Valeria.T0018, true);
             await say(characters.valeria, text.Valeria.T0019, true);
-
+            ƒS.Sound.fade(sound.theme1, 0, 3);
+            ƒS.Sound.play(sound.indoors, 0.5, true);
             await ƒS.Character.show(characters.mum, characters.mum.pose.happy, newPositions.bottomleft);
             await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
             await ƒS.update(0.2);
@@ -150,11 +151,13 @@ namespace Endabgabe {
             await say(characters.dad, text.Dad.T0004);
             await ƒS.Character.hide(characters.dad);
             await ƒS.Character.hide(characters.mum);
+            ƒS.Sound.fade(sound.indoors, 0, 3);
             await ƒS.update(0.2);
         }
 
         ƒS.Speech.hide();
         await ƒS.update(0.2);
+        ƒS.Sound.play(sound.outsideDay, 0.5, true);
         await ƒS.Location.show(locations.houseDay);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
         await ƒS.Character.show(characters.neighbor, characters.neighbor.pose.happy, newPositions.bottomleft);
@@ -176,8 +179,10 @@ namespace Endabgabe {
 
 
         ƒS.Speech.hide();
+        ƒS.Sound.fade(sound.outsideDay, 0, 2);
         await ƒS.update(0.2);
         await ƒS.Location.show(locations.livingroom);
+        ƒS.Sound.play(sound.theme1, 0.3, true);
         await ƒS.update(transitions.slide.duration, transitions.slide.alpha, transitions.slide.edge);
         await say(characters.valeria, text.Valeria.T0031, true);
         await say(characters.valeria, text.Valeria.T0032, true);
@@ -201,6 +206,7 @@ namespace Endabgabe {
             await ƒS.Speech.tell(' ', 'On the radio is a small label - Scroll to change radio stations...');
         }
         hideRadio();
+        ƒS.Sound.fade(sound.theme1, 0, 2);
         return "Suspicion";
 
     }
