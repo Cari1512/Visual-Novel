@@ -28,33 +28,43 @@ namespace Endabgabe {
 
         }
         ƒS.Speech.hide();
-        await ƒS.Location.show(locations.diningroom);
+        ƒS.Sound.fade(sound.theme3, 0, 3);
+        ƒS.Sound.play(sound.theme4, 0.7, true);
+        await ƒS.Location.show(locations.diningroomNight);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
         await ƒS.Character.show(characters.mum, characters.mum.pose.neutral, newPositions.bottomleft);
         await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
         await ƒS.update(0.2);
         await say(characters.valeria, text.Valeria.T0001);
+        
+        
         await say(characters.mum, text.Mum.T0007);
         await say(characters.valeria, text.Valeria.T0002);
+        await ƒS.Character.hide(characters.mum);
         await ƒS.Character.show(characters.mum, characters.mum.pose.confused, newPositions.bottomleft);
         await ƒS.update(0.2);
         await say(characters.mum, text.Mum.T0008);
+        await ƒS.Character.hide(characters.dad);
+        await ƒS.Character.show(characters.dad, characters.dad.pose.angry, newPositions.bottomright);
+        await ƒS.update(0.2);
         await ƒS.Location.show(locations.secretroomLight);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
         await say(characters.valeria, text.Valeria.T0003, true);
-        // key noises
-        await ƒS.Location.show(locations.secretroomLight);// backroom
+        ƒS.Sound.play(sound.door, 0.7, false);
+        await ƒS.Location.show(locations.flashback);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
         await say(characters.valeria, text.Valeria.T0004, true);
         await say(characters.dad, text.Dad.T0011);
         await say(characters.valeria, text.Valeria.T0005);
+        ƒS.Sound.play(sound.panting, 0.3, false);
         await say(characters.mum, text.Mum.T0009);
         await say(characters.valeria, text.Valeria.T0006);
         await say(characters.mum, text.Mum.T0010);
-        //dumpfer sound, black out, pfeifen in denOhren
+        ƒS.Sound.fade(sound.theme4, 0, 3);
+        ƒS.Character.hideAll();
         return "Valeria"; //11
     }
 }

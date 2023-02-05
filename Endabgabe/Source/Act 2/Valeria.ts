@@ -23,9 +23,10 @@ namespace Endabgabe {
         ƒS.Speech.hide();
         await ƒS.Location.show(locations.wall);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
-        await ƒS.update(0.5);
+        ƒS.Sound.play(sound.theme4, 0.3, true);
+        await ƒS.update(5);
         await ƒS.Character.show(characters.valeria, characters.valeria.pose.headDown,ƒS.positions.bottomcenter);
-        await ƒS.update(0.2);
+        await ƒS.update(3);
         await say(characters.brother, text.Brother.T0001);
         await ƒS.Character.hide(characters.valeria);
         await ƒS.Character.show(characters.valeria, characters.valeria.pose.headUp,ƒS.positions.bottomcenter);
@@ -38,10 +39,12 @@ namespace Endabgabe {
         await say(characters.brother, text.Brother.T0006);
         await say(characters.brother, text.Brother.T0007);
         await say(characters.brother, text.Brother.T0008);
+        await ƒS.update(3);
         await ƒS.Character.hide(characters.valeria);
         ƒS.Speech.hide();
         await ƒS.update(0.2);
         await ƒS.Location.show(locations.flashback);
+        ƒS.Sound.fade(sound.theme4, 0, 3);
         await ƒS.update(0.2);
 
         return "empty";

@@ -12,6 +12,7 @@
       "../Source/Act 1/Suspicion.ts",
       "../Source/Act 1/ThePicture.ts",
       "../Source/Act 2/Confronting.ts",
+      "../Source/Act 2/End2.ts",
       "../Source/Act 2/GoingBack.ts",
       "../Source/Act 2/TryingKey.ts",
       "../Source/Act 2/Valeria.ts"
@@ -26,7 +27,7 @@
         },
         {
           "pos": 15,
-          "end": 72834,
+          "end": 84970,
           "kind": "text"
         }
       ],
@@ -54,7 +55,7 @@
       "sections": [
         {
           "pos": 0,
-          "end": 5698,
+          "end": 6308,
           "kind": "text"
         }
       ]

@@ -17,7 +17,7 @@ namespace Endabgabe {
                 //9.1
                 T0008: "No, nothing in her purse.",
                 T0009: "Maybe dad has the keys. If there is a place he would hide the keys, it's probably in his study. Let's check!",
-                T0010: "Why are they back already?",
+                T0010: "Why are they back already??? Never giving me time!",
                 //9.2
                 T0011: "so many places it could be hidden...",
                 T0012: "Why is it so messy...? I will never find the keys. What would be a logical spot to hide the keys? Inside some drawers, on the shelves... oh wait, I think they should be in here!",
@@ -41,6 +41,8 @@ namespace Endabgabe {
 
         }
         ƒS.Speech.hide();
+        ƒS.Sound.fade(sound.theme4, 0, 3);
+        ƒS.Sound.play(sound.theme3, 0.7, true);
         await ƒS.Location.show(locations.act2);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(4);
@@ -51,11 +53,13 @@ namespace Endabgabe {
         await say(characters.valeria, text.Valeria.T0002, true);
         await say(characters.valeria, text.Valeria.T0003, true);
         await say(characters.valeria, text.Valeria.T0004, true);
-        await ƒS.Location.show(locations.hallway);
+        await ƒS.Location.show(locations.secretroom);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
         await say(characters.valeria, text.Valeria.T0005, true);
-        //sound trying to open the door
+        await ƒS.Location.show(locations.door);
+        await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
+        await ƒS.update(0.5);
         await say(characters.valeria, text.Valeria.T0006, true);
         await say(characters.valeria, text.Valeria.T0007, true);
 
@@ -76,21 +80,21 @@ namespace Endabgabe {
                 await ƒS.update(0.5);
                 await say(characters.valeria, text.Valeria.T0008, true);
                 await say(characters.valeria, text.Valeria.T0009, true);
-                await ƒS.Location.show(locations.office);
+                await ƒS.Location.show(locations.officeNight);
                 await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
                 await ƒS.update(0.5);
-                // car noise and some talking
+                ƒS.Sound.play(sound.footstep, 0.3, false);
                 await say(characters.valeria, text.Valeria.T0010, true);
                 return "Confronting";//10.1
 
             case searchingKeys.dadsStudy:
-                await ƒS.Location.show(locations.office);
+                await ƒS.Location.show(locations.officeNight);
                 await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
                 await ƒS.update(0.5);
                 await say(characters.valeria, text.Valeria.T0011, true);
-                //sound of opening boxes and searching
+                ƒS.Sound.play(sound.closet, 0.3, false);
                 await say(characters.valeria, text.Valeria.T0012, true);
-                //box with key
+                await ƒS.Text.print('<img style="width: 500px" src="./Images/Items/key.png">')
                 await say(characters.valeria, text.Valeria.T0013, true);
                 // key inventory
                 ƒS.Inventory.add(items.key);
@@ -102,23 +106,28 @@ namespace Endabgabe {
                 await ƒS.update(0.5);
                 await say(characters.valeria, text.Valeria.T0014, true);
                 await say(characters.valeria, text.Valeria.T0015, true);
-                //sound open departments
+                ƒS.Sound.play(sound.page, 0.3, false);
                 await say(characters.valeria, text.Valeria.T0016, true);
-                //sound of steps
                 await ƒS.Character.show(characters.brother, characters.brother.pose.angry, newPositions.bottomleft);
+                await ƒS.update(0.5);
                 await say(characters.brother, text.Brother.T0020);
                 await say(characters.valeria, text.Valeria.T0017);
                 await say(characters.brother, text.Brother.T0021);
                 await say(characters.valeria, text.Valeria.T0018);
                 await say(characters.brother, text.Brother.T0022);
-                // blurry view
-                // sound eyes ringing
+                ƒS.Sound.play(sound.panting, 0.3, false);
+                await ƒS.Location.show(locations.flashback);
+                await ƒS.update(0.5);
                 await say(characters.valeria, text.Valeria.T0018, true);
                 await say(characters.brother, text.Brother.T0023);
-                // black screen
+                ƒS.Sound.fade(sound.theme3, 0, 3);
+                ƒS.Character.hideAll();
+                await ƒS.update(5);
+                
+
                 return "Valeria"; //11
 
-                
+
 
         }
 

@@ -79,6 +79,8 @@ namespace Endabgabe {
                 await say(characters.valeria, text.Valeria.T0008, true);
                 await say(characters.valeria, text.Valeria.T0009, true);
                 ƒS.Sound.fade(sound.theme2, 0, 3);
+                ƒS.Sound.fade(sound.night, 0, 3);
+                ƒS.Sound.fade(sound.snoring, 0, 3);
                 ƒS.Inventory.add(items.bank_statement);
                 return "AskingFamily";
         }

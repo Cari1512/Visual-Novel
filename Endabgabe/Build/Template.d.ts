@@ -30,12 +30,24 @@ declare namespace Endabgabe {
         snoring: string;
         page: string;
         radio: string;
+        door: string;
+        car: string;
+        footstep: string;
+        closet: string;
+        panting: string;
+        phone: string;
+        hangUp: string;
         theme1: string;
         theme2: string;
         theme3: string;
+        theme4: string;
     };
     let locations: {
         diningroom: {
+            name: string;
+            background: string;
+        };
+        diningroomNight: {
             name: string;
             background: string;
         };
@@ -67,6 +79,10 @@ declare namespace Endabgabe {
             name: string;
             background: string;
         };
+        officeNight: {
+            name: string;
+            background: string;
+        };
         livingroom: {
             name: string;
             background: string;
@@ -88,6 +104,10 @@ declare namespace Endabgabe {
             background: string;
         };
         wall: {
+            name: string;
+            background: string;
+        };
+        door: {
             name: string;
             background: string;
         };
@@ -134,6 +154,9 @@ declare namespace Endabgabe {
                 angry: string;
                 happy: string;
             };
+        };
+        bank: {
+            name: string;
         };
         knife: {
             name: string;
@@ -217,6 +240,9 @@ declare namespace Endabgabe {
 }
 declare namespace Endabgabe {
     function Confronting(): ƒS.SceneReturn;
+}
+declare namespace Endabgabe {
+    function End2(): ƒS.SceneReturn;
 }
 declare namespace Endabgabe {
     function GoingBack(): ƒS.SceneReturn;

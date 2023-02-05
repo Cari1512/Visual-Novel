@@ -27,7 +27,7 @@ namespace Endabgabe {
 
     }
     ƒS.Speech.hide();
-        await ƒS.Location.show(locations.diningroom); // black screen
+        await ƒS.Location.show(locations.flashback); 
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
         await say(characters.valeria, text.Valeria.T0001, true);
@@ -36,8 +36,10 @@ namespace Endabgabe {
         await ƒS.Location.show(locations.houseNight); 
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
+        ƒS.Sound.play(sound.car, 0.3, false);
+        
         await say(characters.valeria, text.Valeria.T0004, true);
-        // sound of car
+        await ƒS.update(10);
         await say(characters.valeria, text.Valeria.T0005, true);
         await ƒS.Character.show(characters.mum, characters.mum.pose.neutral, newPositions.bottomleft);
         await ƒS.Character.show(characters.dad, characters.dad.pose.neutral, newPositions.bottomright);
@@ -46,7 +48,14 @@ namespace Endabgabe {
         await say(characters.dad, text.Dad.T0007);
         await say(characters.mum, text.Mum.T0008);
         await say(characters.valeria, text.Valeria.T0006, true);
+        ƒS.Character.hideAll();
+        await ƒS.update(0.2);
 
+        if (dataForSave.foundSecretRoom) {
         return "GoingBack";
+        }
+        else{
+            return "End2";
+        }
 }
 }

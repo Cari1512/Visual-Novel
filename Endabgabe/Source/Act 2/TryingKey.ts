@@ -10,14 +10,14 @@ namespace Endabgabe {
                 T0001: "ok, let's try the key. It's in my pocket.",
                 T0002: "I should try the key, it's in my pocket!",
                 T0003: "You can get the key in the inventory.",
-                T0004: "Omg, it's another room. Very tiny.",
+                T0004: "Argh, this room, it's another room. Very tiny.",
                 T0005: "I remember this room. Somehow. I recognize it...?",
                 T0006: "What...is..argh! My head!",
                 T0007: "It hurts...so...much.",
             }
         }
         ƒS.Speech.hide();
-        await ƒS.Location.show(locations.diningroom); //door
+        await ƒS.Location.show(locations.door); 
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
         await say(characters.valeria, text.Valeria.T0001, true);
@@ -27,15 +27,17 @@ namespace Endabgabe {
             await say(characters.valeria, text.Valeria.T0003, true);
         }
         ƒS.Inventory.close();
-        //opening door sound
-            await ƒS.Location.show(locations.secretroomLight); //second room
+        ƒS.Sound.play(sound.door, 0.7, false);
+            await ƒS.Location.show(locations.flashback); 
             await ƒS.update(0.5);
             await say(characters.valeria, text.Valeria.T0004, true);
+            ƒS.Sound.play(sound.panting, 0.3, false);
             await say(characters.valeria, text.Valeria.T0005, true);
-            await say(characters.valeria, text.Valeria.T0006, true);
-            //heavy breathing, blurry view, high tone pitch
+            await say(characters.valeria, text.Valeria.T0006, true);        
             await say(characters.valeria, text.Valeria.T0007, true);
-            //black screen
+            ƒS.Sound.fade(sound.theme3, 0, 3);
+            await ƒS.update(7);
+            
             return "Valeria"; //11
 
     }

@@ -9,7 +9,7 @@ namespace Endabgabe {
             Valeria: {
                 T0001: "I should go! ",
                 T0002: "I know what...? Should I know something?... What are they hiding?", 
-                T0003: "he's awake...",
+                T0003: "he's here...",
                 T0004: "What do you mean? Pretending what? I heard you talking to mum. What is wrong with you?",
                 T0005: "Well, aren't you the one acting weird? Are YOU just pretending? What is it I don't know?",
                 T0006: "Yes, but all knives are in the dishwasher, where can I find one?",
@@ -33,6 +33,7 @@ namespace Endabgabe {
         }
 
         ƒS.Speech.hide();
+        ƒS.Sound.play(sound.theme4, 0.3, true);
         await ƒS.Location.show(locations.hallway);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
         await ƒS.update(0.5);
@@ -49,6 +50,8 @@ namespace Endabgabe {
         await ƒS.update(0.5);
 
         await say(characters.valeria, text.Valeria.T0002, true);
+        ƒS.Sound.play(sound.door, 0.7, false);
+        await ƒS.update(1);
         await say(characters.valeria, text.Valeria.T0003, true);
         await ƒS.Character.show(characters.brother, characters.brother.pose.angry, newPositions.bottomleft);
         await ƒS.update(0.2);
@@ -69,6 +72,7 @@ namespace Endabgabe {
                 await say(characters.brother, text.Brother.T0012);
                 await ƒS.Character.hide(characters.brother);
                 await ƒS.update(0.2);
+                ƒS.Sound.fade(sound.theme4, 0,3);
                 return "Knife";
 
             case sleepingAnswer.wakingUp:
@@ -78,6 +82,7 @@ namespace Endabgabe {
                 await say(characters.brother, text.Brother.T0014);
                 await ƒS.Character.hide(characters.brother);
                 await ƒS.update(0.2);
+                ƒS.Sound.fade(sound.theme4, 0,3);
                 return "Knife";
     }
 

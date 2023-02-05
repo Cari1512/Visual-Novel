@@ -38,35 +38,35 @@ namespace Endabgabe {
         await say(characters.mum, text.Mum.T0012);
         await ƒS.Character.hide(characters.mum);
 
-        // flashback kinda background
-        // knifes in hand, turnes bloody (animation??)
+       
         ƒS.Speech.hide();
+        ƒS.Sound.play(sound.theme4, 0.3, true);
         await ƒS.Location.show(locations.flashback);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.show(characters.knife, characters.knife.pose.one, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.two, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.three, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.four, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.five, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.six, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.seven, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
         await ƒS.Character.show(characters.knife, characters.knife.pose.eight, ƒS.positions.center);
-        await ƒS.update(0.1);
+        await ƒS.update(0.2);
         await ƒS.Character.hide(characters.knife);
 
         await say(characters.valeria, text.Valeria.T0003, true);
@@ -78,11 +78,13 @@ namespace Endabgabe {
         // back to reality
         await ƒS.Location.show(locations.diningroom);
         await ƒS.update(transitions.slideFast.duration, transitions.slideFast.alpha, transitions.slideFast.edge);
+        await ƒS.Character.show(characters.mum, characters.mum.pose.confused, newPositions.bottomleft);
         await ƒS.update(0.2);
         await say(characters.mum, text.Mum.T0013);
         await say(characters.valeria, text.Valeria.T0008, true);
         await say(characters.valeria, text.Valeria.T0009, true);
         await say(characters.valeria, text.Valeria.T0010);
+        await ƒS.Character.hide(characters.mum);
 
 
         return "Panic";

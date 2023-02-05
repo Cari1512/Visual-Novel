@@ -34,18 +34,30 @@ namespace Endabgabe {
      snoring: "Audio/SFX/snoring.wav",
      page: "Audio/SFX/page.mp3",
      radio: "Audio/SFX/radio.wav",
+     door: "Audio/SFX/door.mp3",
+     car: "Audio/SFX/car.wav",
+     footstep: "Audio/SFX/footstepsW.mp3",
+     closet: "Audio/SFX/closet.wav",
+     panting: "Audio/SFX/panting.mp3",
+     phone: "Audio/SFX/phone.mp3",
+     hangUp: "Audio/SFX/hangUp.mp3",
 
 
     //themes
     theme1: "Audio/Music/Theme1.mp3",
     theme2: "Audio/Music/theme2.mp3",
-    theme3: "Audio/Music/theme3.mp3"
+    theme3: "Audio/Music/theme3.mp3",
+    theme4: "Audio/Music/theme4.mp3",
   };
 
   export let locations = {
     diningroom: {
       name: "diningroom",
       background: "Images/Backgrounds/diningroom.png",
+    },
+    diningroomNight: {
+      name: "diningroomNight",
+      background: "Images/Backgrounds/diningroom.jpg",
     },
     hallway: {
       name: "hallway",
@@ -75,6 +87,10 @@ namespace Endabgabe {
       name: "office",
       background: "Images/Backgrounds/office.jpg",
     },
+    officeNight: {
+      name: "officeNight",
+      background: "Images/Backgrounds/officeNight.jpg",
+    },
     livingroom: {
       name: "livingroom",
       background: "Images/Backgrounds/livingRoomRadio.jpg",
@@ -98,6 +114,10 @@ namespace Endabgabe {
     wall: {
       name: "wall",
       background: "Images/Backgrounds/greyWall.jpg",
+    },
+    door: {
+      name: "door",
+      background: "Images/Backgrounds/door.jpg",
     }
   };
 
@@ -144,6 +164,10 @@ namespace Endabgabe {
         angry: "Images/Character/Brother_angry.png",
         happy: "Images/Character/Brother_neutral.png",
       }
+    },
+    bank: {
+      name: "Bank Lady",
+      
     },
     knife:{
       name: "Knife",
@@ -335,15 +359,15 @@ namespace Endabgabe {
     },
     key: {
       name: "Key",
-      description: "key to the basement room",
-      image: "./Images/Items/flashlight.png",
+      description: " to the basement room",
+      image: "./Images/Items/key.png",
       static: false,
     },
     bank_statement: {
       name: "Bank Statement",
       description: "found behind the picture",
       image: "./Images/Items/bankDocument.png",
-      static: false,
+      static: true,
     }
   }
 
@@ -355,7 +379,7 @@ namespace Endabgabe {
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
       
-      { scene: Suspicion, name: "Suspicion", id: "Suspicion" },
+      { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },
@@ -369,6 +393,8 @@ namespace Endabgabe {
       { scene: Confronting, name: "Confronting", id: "Confronting" },
       { scene: TryingKey, name: "TryingKey", id: "TryingKey" },
       { scene: Valeria, name: "Valeria", id: "Valeria" },
+      { scene: End2, name: "End2", id: "End2" },
+
       { scene: Empty, name: "Empty", id: "Empty" },
       
 
