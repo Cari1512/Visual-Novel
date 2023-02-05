@@ -12,4 +12,4 @@ Link zum Source Ordner: https://github.com/Cari1512/Visual-Novel/tree/master/End
 
 Link zum Konzeptdokument: https://github.com/Cari1512/Visual-Novel/blob/master/Endabgabe/concept.pdf
 
-Link zum Zipfile: 
+Link zum Zipfile: https://www.dropbox.com/s/4bo0rfo20rsnr8g/Sauermann_Carianne_TheGuilty.zip?dl=0  (Datei zu groß für Git Hub)
