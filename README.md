@@ -6,7 +6,7 @@ Modul: Visual Novel
 
 Semester: WS 2022/23
 
-Link zur Visual Novel: https://github.com/Cari1512/Visual-Novel/tree/master/Endabgabe
+Link zur Visual Novel: https://cari1512.github.io/Visual-Novel/Endabgabe/
 
 Link zum Source Ordner: https://github.com/Cari1512/Visual-Novel/tree/master/Endabgabe/Source
 
