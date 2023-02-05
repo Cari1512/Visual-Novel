@@ -379,6 +379,7 @@ namespace Endabgabe {
   function start(_event: Event): void {
     let scenes: ƒS.Scenes = [
       
+      
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },

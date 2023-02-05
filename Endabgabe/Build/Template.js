@@ -1183,7 +1183,7 @@ var Endabgabe;
         await Endabgabe.ƒS.Location.show(Endabgabe.locations.flashback);
         Endabgabe.ƒS.Sound.fade(Endabgabe.sound.theme3, 0, 3);
         await Endabgabe.ƒS.update(0.2);
-        return "empty";
+        return "Empty";
     }
     Endabgabe.End2 = End2;
 })(Endabgabe || (Endabgabe = {}));

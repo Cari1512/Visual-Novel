@@ -128,7 +128,7 @@ namespace Endabgabe {
         ƒS.Sound.fade(sound.theme3, 0, 3);
         await ƒS.update(0.2);
 
-        return "empty";
+        return "Empty";
         
 
     }
