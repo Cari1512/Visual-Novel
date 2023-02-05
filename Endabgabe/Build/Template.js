@@ -353,7 +353,6 @@ var Endabgabe;
     window.addEventListener("load", start);
     function start(_event) {
         let scenes = [
-            { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.ANormalDay, name: "ANormalDay", id: "ANormalDay" },
             { scene: Endabgabe.ThePicture, name: "ThePicture", id: "ThePicture" },
             { scene: Endabgabe.AskingFamily, name: "AskingFamily", id: "AskingFamily" },

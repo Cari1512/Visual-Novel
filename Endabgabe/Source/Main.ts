@@ -380,7 +380,7 @@ namespace Endabgabe {
     let scenes: ƒS.Scenes = [
       
       
-      { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
+      
       { scene: ANormalDay, name: "ANormalDay", id: "ANormalDay" },
       { scene: ThePicture, name: "ThePicture", id: "ThePicture" },
       { scene: AskingFamily, name: "AskingFamily", id: "AskingFamily" },
